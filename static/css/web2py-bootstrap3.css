@@ -111,12 +111,6 @@ body {
     padding-top: 60px;
     margin-bottom: 60px;
 }
-header {
-    -webkit-box-shadow: 0 0 8px 2px #000;
-    -moz-box-shadow: 0 0 8px 2px #000;
-    box-shadow: 0 0 8px 2px #000;
-    margin-bottom: 10px;
-}
 html {
     position: relative;
     min-height: 100%;
@@ -128,13 +122,6 @@ html {
     height: 60px;
     background: #333;
     color: #aaa;
-}
-header h1 {
-    color: #FFF!important;
-    text-shadow: 0 0 7px #000;
-}
-header .jumbotron {
-    background-color: transparent;
 }
 .w2p_flash {
     opacity: 0.9!important;

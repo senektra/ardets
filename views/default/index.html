@@ -1,52 +1,57 @@
-{{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
+{{block head}}
+    <link rel="stylesheet" href="{{=URL('static','css/index.css')}}"/>
+{{end}}
+
 {{extend 'layout.html'}}
 
-{{block header}}
-    <header class="container-fluid background">
-      <div class="jumbotron text-center">
-        {{if response.title:}}
-        <h1>{{=response.title}}
-          <small>{{=response.subtitle or ''}}</small></h1>
-        {{pass}}
-      </div>
-    </header>
-{{end}}
+<div id="site-container">
 
-{{if 'message' in globals():}}
-<h2>{{=message}}</h2>
-<p class="lead">{{=T('How did you get here?')}}</p>
-<ol>
-  <li>{{=T('You are successfully running web2py')}}</li>
-  <li>{{=XML(T('You visited the url %s', A(request.env.path_info,_href=request.env.path_info)))}}</li>
-  <li>{{=XML(T('Which called the function %s located in the file %s',
-    (A(request.function+'()',_href='#'),
-    A('web2py/applications/%(application)s/controllers/%(controller)s.py' % request,
-    _href=URL('admin','default','peek', args=(request.application,'controllers',request.controller+'.py'))))))}}</li>
-  <li>{{=XML(T('The output of the file is a dictionary that was rendered by the view %s',
-    A('web2py/applications/%(application)s/views/%(controller)s/index.html' % request,
-    _href=URL('admin','default','peek',args=(request.application,'views',request.controller,'index.html')))))}}</li>
-  <li>{{=T('You can modify this application and adapt it to your needs')}}</li>
-</ol>
-{{elif 'content' in globals():}}
-{{=content}}
-{{else:}}
-{{=BEAUTIFY(response._vars)}}
-{{pass}}
+<header id="site-top">
+    <div id="site-title-container">
+        <h1 id="site-title">ARDeTS</h1>
+        <span id="site-full-title">Assistive Rapid Development Tracking System</span>
+    </div>
+    <nav>
+        <ul>
+            <li>
+                <a href="{{=URL("default", "why-ardets")}}">Why ARDeTS</a>
+            </li>
+            <li>
+                <a href="{{=URL("default", "documentation")}}">Documentation</a>
+            </li>
+            <li>
+                <a href="{{=URL("default", "about-us")}}">About Us</a>
+            </li>
+        </ul>
+    </nav>
+</header>
 
-{{block right_sidebar}}
-<div class="panel panel-info">
-  <div class="panel-heading"><h3 class="panel-title"><a class="btn-block"
-      href="{{=URL('admin','default','index')}}">
-      <i class="glyphicon glyphicon-cog"></i>
-      {{=T("admin")}}
-    </a></h3></div>
-  <div class="panel-body">
-    {{=T("Don't know what to do?")}}
-  </div>
-  <ul class="list-group">
-    <li class="list-group-item">{{=A(T("Online examples"), _href=URL('examples','default','index'))}}</li>
-    <li class="list-group-item"><a href="http://web2py.com">web2py.com</a></li>
-    <li class="list-group-item"><a href="http://web2py.com/book">{{=T('Documentation')}}</a></li>
-  </ul>
+<div id="site-divider"></div>
+
+<main id="site-content">
+    <article>
+        <h2>Development Life Cycle for Rapid Development</h2>
+        <p>
+            ARDeTS aspires to be a development life cycle technology that aims to help those working
+            on a rapidly developing application. Inspired by needs of a rapidly developing application,
+            ARDeTS was envisioned first as a simple tracking system. However, much of its potential was
+            limited to manual handwork. Named first the "Development Tracking System", I tend to to take
+            this idea where I couldn't before, using the power of a web application to automate most of
+            what a developer need not worry about while developing.
+        </p>
+    </article>
+    <article>
+        <h2>Semantic Versioning Deployment</h2>
+        <p>
+            ARDeTS will follow a three "phase" development life cycle, leveraging SEMVER versioning. The
+            first phase, Development, is where an application goes through the process of obtaining new
+            features, general maintenance and optimization. The Staging phase sees that an application be
+            tested in a controlled environment. This ensures an application will behave as expected in the
+            real world. The final phase, Production, is where an application is shipped or deployed to the
+            real world for actual end users to use
+        </p>
+    </article>
+</main>
+
 </div>
-{{end}}
+

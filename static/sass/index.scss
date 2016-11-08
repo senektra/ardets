@@ -1,0 +1,98 @@
+@import "base";
+
+// --- Top site styling
+
+// Top portion of the index page, contains the site-title-container, nav and login-signup.
+header#site-top {
+  display: block;
+
+  position: relative;
+
+  margin-top: 70px;
+
+  width: 100%;
+}
+
+// Title of index page, contains site-full-title and site-title
+#site-title-container {
+  display: inline-block;
+
+  width: 48%;
+}
+
+#site-full-title {
+  font-size: 18px;
+}
+
+#site-title {
+  font-family: Raleway;
+  font-size: 60px;
+}
+
+header nav {
+  display: inline-block;
+
+  position: absolute;
+  right: 0;
+  bottom: 0;
+
+  width: 40%;
+
+  font-size: 15px;
+
+  ul {
+    display: block;
+    float: right;
+
+    margin: 0;
+    padding: 0;
+
+    line-height: 10px;
+  }
+
+  ul li {
+    display: inline-block;
+    list-style-type: none;
+    padding-left: 20px;
+    padding-right: 20px;
+    float: left;
+    height: 20px;
+    line-height: 20px;
+    border-right: 1px solid gray;
+  }
+
+  ul li:last-child {
+    border-right: none;
+  }
+}
+
+// --- End site-top styling
+
+// --- Start site-divider styling
+
+// Divides site-top from site-content
+#site-divider {
+  margin-top: 28px;
+  margin-bottom: 50px;
+
+  height: 37px;
+
+  background-color: #085394;
+}
+
+// --- End site-divider styling
+
+// --- Start site-content styling
+
+#site-content article {
+  margin-bottom: 50px;
+
+  h2 {
+    margin-bottom: 28px;
+  }
+
+  p {
+    padding-right: 30%;
+    font-size: 18px;
+  }
+}
