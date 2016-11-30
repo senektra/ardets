@@ -1,0 +1,39 @@
+html, body {
+  height: 100%;
+  padding: 0;
+
+  nav {
+    display: none;
+  }
+
+  footer {
+    display: none;
+  }
+}
+
+#site-container {
+  margin: auto;
+
+  width: 98%;
+  height: 100%;
+
+  max-width: 1366px;
+  background-color: white;
+
+  font-family: Roboto;
+}
+
+#site-page-header {
+    margin-top: 70px;
+    height: 70px;
+    width: 100%;
+}
+
+#site-page-content {
+  width: 100%;
+}
+
+#vue-div {
+  margin: auto;
+  max-width: 1000px;
+}

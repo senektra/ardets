@@ -1,0 +1,332 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway|Maven+Pro:500");
+/* line 1, ../sass/_main.scss */
+html, body {
+  height: 100%;
+  padding: 0;
+}
+/* line 5, ../sass/_main.scss */
+html nav, body nav {
+  display: none;
+}
+/* line 9, ../sass/_main.scss */
+html footer, body footer {
+  display: none;
+}
+
+/* line 14, ../sass/_main.scss */
+#site-container {
+  margin: auto;
+  width: 98%;
+  height: 100%;
+  max-width: 1366px;
+  background-color: white;
+  font-family: Roboto;
+}
+
+/* line 26, ../sass/_main.scss */
+#site-page-header {
+  margin-top: 70px;
+  height: 70px;
+  width: 100%;
+}
+
+/* line 32, ../sass/_main.scss */
+#site-page-content {
+  width: 100%;
+}
+
+/* line 36, ../sass/_main.scss */
+#vue-div {
+  margin: auto;
+  max-width: 1000px;
+}
+
+/* line 4, ../sass/project.scss */
+#site-page-header {
+  margin-bottom: 20px;
+}
+
+/* line 8, ../sass/project.scss */
+.user-page-title {
+  font-family: Roboto;
+  font-size: 25px;
+}
+
+/* line 13, ../sass/project.scss */
+#version-phase-bar {
+  margin-bottom: 20px;
+  height: 45px;
+  width: 100%;
+  box-shadow: 0px 8px 5px -5px #d8d8d8;
+}
+/* line 21, ../sass/project.scss */
+#version-phase-bar button {
+  display: inline-block;
+  float: left;
+  background-color: #e2e2e2;
+  margin: 0;
+  height: 100%;
+  width: 33.3%;
+  color: Black;
+  font-family: Roboto;
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: normal;
+  text-transform: none;
+  border: 1px solid #c4c4c4;
+  box-shadow: none;
+}
+/* line 45, ../sass/project.scss */
+#version-phase-bar button:hover {
+  background-color: #d8d8d8;
+}
+/* line 49, ../sass/project.scss */
+#version-phase-bar button#version-button {
+  border-right: 0px;
+}
+/* line 53, ../sass/project.scss */
+#version-phase-bar button#settings-button {
+  border-left: 0px;
+}
+
+/* line 58, ../sass/project.scss */
+.track-overview {
+  height: 140px;
+}
+
+/* line 62, ../sass/project.scss */
+.dev-track {
+  border-bottom: 1px solid #c7c7c7;
+}
+
+/* line 66, ../sass/project.scss */
+.overview-large {
+  height: 690px;
+}
+/* line 69, ../sass/project.scss */
+.overview-large form {
+  display: block;
+  margin-top: 25px;
+  margin-left: 7%;
+  width: 80%;
+}
+/* line 75, ../sass/project.scss */
+.overview-large form .form-group {
+  margin: 0;
+}
+/* line 79, ../sass/project.scss */
+.overview-large form #summary_row {
+  width: 100%;
+  font-size: 12px;
+}
+/* line 83, ../sass/project.scss */
+.overview-large form #summary_row textarea {
+  resize: none;
+  border: none;
+  border-radius: 0;
+  border-bottom: 2px solid #b0dce5;
+}
+/* line 91, ../sass/project.scss */
+.overview-large form #add_task_submit {
+  float: right;
+  margin-right: 20px;
+  height: 25px;
+  line-height: 14px;
+  background-color: #b0dce5;
+}
+/* line 99, ../sass/project.scss */
+.overview-large form .priority {
+  margin-top: 10px;
+  margin-left: 20px;
+}
+/* line 103, ../sass/project.scss */
+.overview-large form .priority label {
+  float: left;
+  display: inline-block;
+  margin-right: 20px;
+  font-weight: normal;
+}
+/* line 110, ../sass/project.scss */
+.overview-large form .priority div {
+  display: inline-block;
+  float: left;
+  margin-right: 1px;
+  width: 20px;
+  height: 16px;
+  color: transparent;
+}
+/* line 119, ../sass/project.scss */
+.overview-large form .priority div:hover {
+  cursor: pointer;
+}
+/* line 123, ../sass/project.scss */
+.overview-large form .priority .green-priority {
+  background-color: greenyellow;
+}
+/* line 127, ../sass/project.scss */
+.overview-large form .priority .yellow-priority {
+  background-color: #ffda33;
+}
+/* line 131, ../sass/project.scss */
+.overview-large form .priority .red-priority {
+  background-color: crimson;
+}
+/* line 135, ../sass/project.scss */
+.overview-large form .priority .selected {
+  height: 25px;
+  text-align: center;
+  line-height: 25px;
+  color: black;
+}
+
+/* line 145, ../sass/project.scss */
+.track-icon-holder {
+  padding-top: 45px;
+  float: left;
+  height: 100%;
+  width: 70px;
+}
+
+/* line 152, ../sass/project.scss */
+.track-title {
+  padding: 20px;
+  height: 50%;
+  font-size: 30px;
+}
+/* line 159, ../sass/project.scss */
+.track-title .icon-holder {
+  float: right;
+}
+
+/* line 164, ../sass/project.scss */
+.track-summary {
+  padding-left: 20px;
+  height: 50%;
+  color: #47adc2;
+  font-size: 20px;
+}
+
+/* line 174, ../sass/project.scss */
+#tasks-nav-buttons {
+  width: 95%;
+  height: 30px;
+  margin-left: 7%;
+  margin-bottom: 10px;
+}
+/* line 180, ../sass/project.scss */
+#tasks-nav-buttons div {
+  float: left;
+  display: inline-block;
+  height: 30px;
+  width: 31%;
+  font-size: 20px;
+  text-align: center;
+}
+/* line 192, ../sass/project.scss */
+#tasks-nav-buttons div.selected {
+  border-bottom: 2px solid #b0dce5;
+}
+/* line 196, ../sass/project.scss */
+#tasks-nav-buttons div:hover {
+  cursor: pointer;
+}
+
+/* line 201, ../sass/project.scss */
+#tasks {
+  height: 350px;
+  overflow-y: auto;
+  width: 95%;
+}
+
+/* line 207, ../sass/project.scss */
+.task-container {
+  display: flex;
+  margin-bottom: 15px;
+  margin-left: 7%;
+}
+/* line 212, ../sass/project.scss */
+.task-container .priority {
+  float: left;
+  margin-top: 3px;
+  margin-right: 5px;
+  width: 30px;
+  height: 32px;
+  text-align: center;
+  font-size: 17px;
+  line-height: 32px;
+}
+/* line 224, ../sass/project.scss */
+.task-container .priority.red {
+  border-left: 3px solid crimson;
+}
+/* line 228, ../sass/project.scss */
+.task-container .priority.yellow {
+  border-left: 3px solid #ffda33;
+}
+/* line 232, ../sass/project.scss */
+.task-container .priority.green {
+  border-left: 3px solid yellowgreen;
+}
+/* line 236, ../sass/project.scss */
+.task-container i:hover {
+  cursor: pointer;
+}
+/* line 240, ../sass/project.scss */
+.task-container .task-buttons {
+  float: left;
+  display: inline-block;
+  margin-right: 10px;
+}
+/* line 244, ../sass/project.scss */
+.task-container .task-buttons div {
+  height: 15px;
+}
+/* line 248, ../sass/project.scss */
+.task-container .task-buttons div:first-child {
+  margin-bottom: 3px;
+}
+/* line 253, ../sass/project.scss */
+.task-container .task-info-container {
+  float: left;
+  width: 85%;
+}
+/* line 258, ../sass/project.scss */
+.task-container .task-info-container .summary {
+  font-size: 17px;
+  margin-bottom: 4px;
+}
+/* line 263, ../sass/project.scss */
+.task-container .task-info-container .meta-info {
+  display: inline-block;
+  float: left;
+  width: 100%;
+  color: #47adc2;
+}
+/* line 270, ../sass/project.scss */
+.task-container .task-info-container .meta-info * {
+  float: left;
+  width: 50%;
+}
+/* line 276, ../sass/project.scss */
+.task-container .task-info-container .buttons {
+  display: inline-block;
+  float: left;
+  width: 50%;
+}
+
+/* line 286, ../sass/project.scss */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* line 290, ../sass/project.scss */
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+}
+
+/* line 295, ../sass/project.scss */
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: #47adc2;
+}

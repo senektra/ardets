@@ -1,0 +1,90 @@
+{{block head}}
+    <!--     Stylesheets      -->
+    <link rel="stylesheet" href="{{=URL('static','css/index.css')}}"/>
+    <link rel="stylesheet" href="{{=URL('static','css/projects.css')}}"/>
+
+    <!--     JavaScripts      -->
+    <script src="{{=URL('static', 'js/vue.js')}}"></script>
+    <script>
+        var get_projects_url = "{{=URL('projects_api', 'get_projects', user_signature=True)}}";
+        var get_project_url = "{{=URL('projects_api', 'get_project', user_signature=True)}}";
+        var create_project_url = "{{=URL('projects_api', 'create_project', user_signature=True)}}";
+        var base_url = "{{=URL('user', 'projects')}}";
+    </script>
+{{end}}
+
+{{extend 'layout.html'}}
+
+<div id="site-container">
+    <div id="vue-div" style="display:none">
+
+    <!-- Site Page Header (First upper part of the document) -->
+    <div id="site-page-header">
+        <div class="user-page-title">PROJECTS</div>
+    </div>
+
+    <!-- Site Page Content (Actual content of the document) -->
+    <div id="site-page-content">
+        <div v-if="is_creating">
+            <form action="#" v-on:submit.prevent="create_project" class="form-horizontal" enctype="multipart/form-data" method="post">
+                <div id="form-header">Create a New Project</div>
+
+                <div id="project-details-left">
+                    <div class="form-group string" id="project_name_row">
+                        <label>Project Name</label>
+                        <input class="form-control string" id="name" v-model="form_project_name" type="text" placeholder="A Great Project Name"/>
+
+                        <label>Phase</label>
+                        <select id="form-phase" v-model="form_project_phase">
+                            <option class="form_phase_option">Develop</option>
+                            <option class="form_phase_option">Staging</option>
+                            <option class="form_phase_option">Production</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="project-version-row">
+                        <label>Major</label>
+                        <input class="form-control string" id="version" v-model="form_project_version_major" type="number"/>
+                        <label>Minor</label>
+                        <input class="form-control string" id="version" v-model="form_project_version_minor" type="number"/>
+                        <label>Patch</label>
+                        <input class="form-control string" id="version" v-model="form_project_version_patch" type="number"/>
+                    </div>
+                </div>
+
+                <div id="button-holder">
+                    <span class="help-block"></span>
+                    <input class="btn btn-primary btn-sm" id="create_project_submit" type="submit" value="Create Project"/>
+                </div>
+            </form>
+        </div>
+
+        <div id="projects-buttons-bar">
+            <button id="create-project-button" v-on:click.prevent="toggle_is_creating()">New Project</button>
+            <button id="demo-project-button">Demo Project</button>
+        </div>
+
+        <div id="projects-list">
+            <div v-if="has_projects">
+            <table>
+                <tr id="header">
+                    <th>Project</th>
+                    <th>Phase</th>
+                    <th>Version</th>
+                </tr>
+                <tr v-for="project in projects" class="projects" v-on:click="send_to_project_page(project.project_name)">
+                    <td>${project.project_name}</td>
+                    <td>${project.project_phase}</td>
+                    <td>${project.project_version}</td>
+                </tr>
+            </table>
+            </div>
+        </div>
+
+    <!-- End Site Page Content -->
+    </div>
+    <!--      End Vue Div      -->
+    </div>
+</div>
+
+<script src="{{=URL('static', 'js/projects_vue.js')}}"></script>

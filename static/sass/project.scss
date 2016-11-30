@@ -1,0 +1,298 @@
+@import "base";
+@import "main";
+
+#site-page-header {
+  margin-bottom: 20px;
+}
+
+.user-page-title {
+  font-family: Roboto;
+  font-size: 25px;
+}
+
+#version-phase-bar {
+  margin-bottom: 20px;
+
+  height: 45px;
+  width: 100%;
+
+  box-shadow: 0px 8px 5px -5px #d8d8d8;
+
+  button {
+    display: inline-block;
+    float: left;
+
+    background-color: #e2e2e2;
+
+    margin: 0;
+
+    height: 100%;
+    width: 33.3%;
+
+    color: Black;
+    font-family: Roboto;
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: normal;
+
+    text-transform: none;
+
+    border: 1px solid #c4c4c4;
+
+    box-shadow: none;
+  }
+
+  button:hover {
+    background-color: #d8d8d8;
+  }
+
+  button#version-button {
+    border-right: 0px;
+  }
+
+  button#settings-button {
+    border-left: 0px;
+  }
+}
+
+.track-overview {
+  height: 140px;
+}
+
+.dev-track {
+  border-bottom: 1px solid #c7c7c7;
+}
+
+.overview-large {
+  height: 690px;
+
+  form {
+    display: block;
+    margin-top: 25px;
+    margin-left: 7%;
+    width: 80%;
+
+    .form-group {
+      margin: 0;
+    }
+
+    #summary_row {
+      width: 100%;
+      font-size: 12px;
+
+      textarea{
+        resize: none;
+        border: none;
+        border-radius: 0;
+        border-bottom: 2px solid #b0dce5;
+      }
+    }
+
+    #add_task_submit {
+      float: right;
+      margin-right: 20px;
+      height: 25px;
+      line-height: 14px;
+      background-color: $mainLightBlue;
+    }
+
+    .priority {
+      margin-top: 10px;
+      margin-left: 20px;
+
+      label {
+        float: left;
+        display: inline-block;
+        margin-right: 20px;
+        font-weight: normal;
+      }
+
+      div {
+        display: inline-block;
+        float: left;
+        margin-right: 1px;
+        width: 20px;
+        height: 16px;
+        color: transparent;
+      }
+
+      div:hover {
+        cursor: pointer;
+      }
+
+      .green-priority {
+        background-color: greenyellow;
+      }
+
+      .yellow-priority {
+        background-color: #ffda33;
+      }
+
+      .red-priority {
+        background-color: crimson;
+      }
+
+      .selected {
+        height: 25px;
+        text-align: center;
+        line-height: 25px;
+        color: black;
+      }
+    }
+  }
+}
+
+.track-icon-holder {
+  padding-top: 45px;
+  float: left;
+  height: 100%;
+  width: 70px;
+}
+
+.track-title {
+  padding: 20px;
+
+  height: 50%;
+
+  font-size: 30px;
+
+  .icon-holder {
+    float: right;
+  }
+}
+
+.track-summary {
+  padding-left: 20px;
+
+  height: 50%;
+
+  color: $mainDarkBlue;
+  font-size: 20px;
+}
+
+
+#tasks-nav-buttons {
+  width: 95%;
+  height: 30px;
+  margin-left: 7%;
+  margin-bottom: 10px;
+
+  div {
+    float: left;
+    display: inline-block;
+
+    height: 30px;
+    width: 31%;
+
+    font-size: 20px;
+
+    text-align: center;
+  }
+
+  div.selected {
+    border-bottom: 2px solid $mainLightBlue;
+  }
+
+  div:hover {
+    cursor: pointer;
+  }
+}
+
+#tasks {
+  height: 350px;
+  overflow-y: auto;
+  width: 95%;
+}
+
+.task-container {
+  display: flex;
+  margin-bottom: 15px;
+  margin-left: 7%;
+
+  .priority {
+    float: left;
+    margin-top: 3px;
+    margin-right: 5px;
+    width: 30px;
+    height: 32px;
+
+    text-align: center;
+    font-size: 17px;
+    line-height: 32px;
+  }
+
+  .priority.red {
+    border-left: 3px solid crimson;
+  }
+
+  .priority.yellow {
+    border-left: 3px solid #ffda33;
+  }
+
+  .priority.green {
+    border-left: 3px solid yellowgreen;
+  }
+
+  i:hover {
+    cursor: pointer;
+  }
+
+  .task-buttons {
+    float: left;
+    display: inline-block;
+    margin-right: 10px;
+    div {
+      height: 15px;
+    }
+
+    div:first-child {
+      margin-bottom: 3px;
+    }
+  }
+
+  .task-info-container {
+    float: left;
+
+    width: 85%;
+
+    .summary {
+      font-size: 17px;
+      margin-bottom: 4px;
+    }
+
+    .meta-info {
+      display: inline-block;
+      float: left;
+
+      width: 100%;
+      color: $mainDarkBlue;
+
+      * {
+        float: left;
+        width: 50%;
+      }
+    }
+
+    .buttons {
+      display: inline-block;
+      float:left;
+
+      width: 50%;
+    }
+  }
+}
+
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 3px rgba(0,0,0,0.3);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: $mainDarkBlue;
+}

@@ -1,0 +1,13 @@
+@import "compass";
+// @import "compass/reset";
+@import "compass/css3";
+@import "compass/css3/border-radius";
+@import "compass/css3/opacity";
+@import "compass/utilities";
+
+@import url("https://fonts.googleapis.com/css?family=Raleway|Maven+Pro:500");
+//note that compass is a sass extension.
+//install using "gem install compass"
+//use by runninng "compass watch" from the static folder
+
+@import "constants";

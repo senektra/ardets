@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway|Maven+Pro:500");
+/* line 1, ../sass/_main.scss */
+html, body {
+  height: 100%;
+  padding: 0;
+}
+/* line 5, ../sass/_main.scss */
+html nav, body nav {
+  display: none;
+}
+/* line 9, ../sass/_main.scss */
+html footer, body footer {
+  display: none;
+}
+
+/* line 14, ../sass/_main.scss */
+#site-container {
+  margin: auto;
+  width: 98%;
+  height: 100%;
+  max-width: 1366px;
+  background-color: white;
+  font-family: Roboto;
+}
+
+/* line 26, ../sass/_main.scss */
+#site-page-header {
+  margin-top: 70px;
+  height: 70px;
+  width: 100%;
+}
+
+/* line 32, ../sass/_main.scss */
+#site-page-content {
+  width: 100%;
+}
+
+/* line 36, ../sass/_main.scss */
+#vue-div {
+  margin: auto;
+  max-width: 1000px;
+}
