@@ -21,6 +21,11 @@ db.project.project_name.requires = IS_NOT_EMPTY()
 db.project.project_phase.requires = IS_NOT_EMPTY()
 db.project.project_version.requires = IS_NOT_EMPTY()
 
+db.define_table('projects_version',
+                Field('project_id', 'integer'),
+                Field('project_version', 'text')
+                )
+
 db.define_table('projects_user',
                 Field('project_id', 'integer'),
                 Field('ardets_username', 'text')

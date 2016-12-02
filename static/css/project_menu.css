@@ -1,0 +1,152 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway|Maven+Pro:500");
+/* line 3, ../sass/project_menu.scss */
+.menu-header {
+  font-size: 25px;
+}
+
+/* line 9, ../sass/project_menu.scss */
+.tab-menu-wrapper {
+  margin: auto;
+  width: 75%;
+  min-width: 552px;
+}
+
+/* line 17, ../sass/project_menu.scss */
+#version-browser {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  width: 100%;
+  height: 60px;
+}
+/* line 28, ../sass/project_menu.scss */
+#version-browser label,
+#version-browser select,
+#version-browser div {
+  display: inline-block;
+  float: left;
+}
+/* line 35, ../sass/project_menu.scss */
+#version-browser #browse-label {
+  height: 60px;
+  line-height: 60px;
+  font-weight: normal;
+  padding: 0;
+  margin: 0;
+  font-size: 18px;
+  margin-right: 20px;
+}
+/* line 48, ../sass/project_menu.scss */
+#version-browser #browse-version-select {
+  display: block;
+  margin-right: 20px;
+  background-color: #b0dce5;
+  border: none;
+  height: 28px;
+  width: 100px;
+  text-align-last: center;
+  border-radius: 5px;
+}
+/* line 64, ../sass/project_menu.scss */
+#version-browser #browse-go-wrapper:hover {
+  cursor: pointer;
+}
+
+/* line 72, ../sass/project_menu.scss */
+#version-inc-tabs ul {
+  display: -webkit-flex;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  height: 40px;
+  width: 100%;
+  list-style-type: none;
+}
+/* line 85, ../sass/project_menu.scss */
+#version-inc-tabs ul li {
+  display: block;
+  flex: 1;
+  width: 33.3%;
+  font-size: 18px;
+  line-height: 40px;
+  text-align: center;
+}
+/* line 97, ../sass/project_menu.scss */
+#version-inc-tabs ul .selected {
+  border-bottom: 3px solid #b0dce5;
+}
+/* line 101, ../sass/project_menu.scss */
+#version-inc-tabs ul li:hover {
+  cursor: pointer;
+}
+
+/* line 109, ../sass/project_menu.scss */
+#version-inc-menu {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 20px;
+  width: 100%;
+  height: 150px;
+}
+/* line 120, ../sass/project_menu.scss */
+#version-inc-menu .inc-warning {
+  padding-left: 60px;
+  padding-right: 60px;
+  margin-top: 10px;
+  color: gray;
+  font-size: 14px;
+}
+/* line 130, ../sass/project_menu.scss */
+#version-inc-menu .inc-button {
+  margin: auto;
+  margin-top: 10px;
+}
+/* line 134, ../sass/project_menu.scss */
+#version-inc-menu .inc-button input {
+  background-color: #b0dce5;
+  height: 32px;
+  color: black;
+  line-height: 16px;
+}
+/* line 144, ../sass/project_menu.scss */
+#version-inc-menu .inc-confirm-wrapper {
+  display: flex;
+  justify-content: center;
+}
+/* line 149, ../sass/project_menu.scss */
+#version-inc-menu .inc-confirm-wrapper .inc-lock {
+  margin-right: 6px;
+}
+/* line 153, ../sass/project_menu.scss */
+#version-inc-menu .inc-confirm-wrapper .inc-lock:hover {
+  cursor: pointer;
+}
+
+/* line 162, ../sass/project_menu.scss */
+#settings-tabs ul {
+  display: flex;
+  justify-content: center;
+  height: 40px;
+  width: 100%;
+  padding: 0;
+  list-style-type: none;
+}
+/* line 174, ../sass/project_menu.scss */
+#settings-tabs ul li {
+  display: block;
+  flex: 1;
+  width: 33.3%;
+  font-size: 18px;
+  line-height: 40px;
+  text-align: center;
+}
+/* line 186, ../sass/project_menu.scss */
+#settings-tabs ul .selected {
+  border-bottom: 3px solid #b0dce5;
+}
+/* line 190, ../sass/project_menu.scss */
+#settings-tabs ul li:hover {
+  cursor: pointer;
+}
