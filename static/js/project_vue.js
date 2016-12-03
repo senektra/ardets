@@ -11,6 +11,30 @@ var MARKED_ICON = 'fa fa-check';
 var UNMARKED_ICON = 'fa fa-crosshairs';
 var FINISHED_ICON = 'fa fa-rotate-left'
 
+var VERSION_MAJOR = "major";
+var VERSION_MINOR = "minor";
+var VERSION_PATCH = "patch";
+
+var MAJOR_INC_WARNING = "Incrementing version major will create a new " +
+                        "browsable version. Current version will stay as is";
+
+var MINOR_INC_WARNING = "Incrementing version minor will create a new " +
+                        "browsable version. Current version will be " +
+                        "archived if it hasn't reached production";
+
+var PATCH_INC_VERSION = "Incrementing patch will only alter this version's patch " +
+                        "version. It will create a new browsable version.";
+
+var VERSION_MENU_DATA = {
+    selected_version_tab: VERSION_MAJOR,
+    selected_version_warning: MAJOR_INC_WARNING
+};
+
+var SETTINGS_MENU_DATA = {
+    selected_settings_tab: "reset",
+    button_locked: false
+};
+
 var tracks = {
     "Documentation": {
         title: DOCUMENTATION,
@@ -39,6 +63,14 @@ var getPriority = function(priority) {
         case 'green': return 3;
         case 'yellow': return 2;
         case 'red': return 1;
+    }
+}
+
+var get_inc_warning = function(version_tab) {
+    switch(version_tab) {
+        case VERSION_MAJOR: return MAJOR_INC_WARNING;
+        case VERSION_MINOR: return MINOR_INC_WARNING;
+        case VERSION_PATCH: return PATCH_INC_VERSION;
     }
 }
 
@@ -71,19 +103,25 @@ var app = function() {
         }
     };
 
-    self.get_project = function() {
+    self.get_project = function(version) {
         $.post(get_project_url, {
-            project_id: project_id
+            project_id: project_id,
+            project_version: version
         }, function(data) {
             if (data.error) {
+                console.log(data.error);
                 return;
             }
 
-            self.vue.project.name = data.name;
-            self.vue.project.version = data.version;
-            self.vue.project.phase = data.phase;
+            console.log(data);
 
-            console.log(tracks);
+            self.vue.project.name = data.name;
+
+            self.vue.project.version = data.requested_version;
+            self.vue.project.versions = data.versions;
+            self.vue.project.versions.unshift(data.version);
+
+            self.vue.project.phase = data.phase;
 
             self.vue.tracks = tracks;
 
@@ -94,12 +132,17 @@ var app = function() {
         });
     }
 
+    self.get_selected_browse_version = function() {
+        return $('#browse-version-select').val();
+    }
+
     self.add_task = function() {
         $.post(add_task_url, {
             project_id: project_id,
             task_summary: self.vue.form_task_summary,
             task_priority: getPriority(self.vue.selected_priority),
-            task_track: self.vue.overview_large
+            task_track: self.vue.overview_large,
+            task_version: self.vue.project.version
         }, function(data) {
             if (data.error) {
                 return;
@@ -121,9 +164,6 @@ var app = function() {
 
     self.set_overview_large = function(track) {
         self.vue.overview_large = track;
-        Vue.nextTick(function() {
-            $('.nano').nanoScroller({ alwaysVisible: true, scroll: 'top' });
-        });
     }
 
     self.is_overview_large = function(track) {
@@ -224,44 +264,226 @@ var app = function() {
         }
     }
 
+    self.main_bar_select = function(option) {
+        switch(option) {
+            case 'version':
+                self.vue.version_menu_active = !self.vue.version_menu_active;
+                self.vue.phase_menu_active = false;
+                self.vue.settings_menu_active = false;
+
+                if (self.vue.version_menu_active) {
+                    Vue.nextTick(function() {
+                        self.lock_increment();
+                        $("#browse-version-select").val(self.vue.project.version);
+                    });
+                }
+                break;
+            case 'phase':
+                self.vue.phase_menu_active = !self.vue.phase_menu_active;
+                self.vue.version_menu_active = false;
+                self.vue.settings_menu_active = false;
+                break;
+            case 'settings':
+                self.vue.settings_menu_active = !self.vue.settings_menu_active;
+                self.vue.version_menu_active = false;
+                self.vue.phase_menu_active = false;
+
+                if (self.vue.settings_menu_active) {
+                    Vue.nextTick(self.lock_settings_button);
+                }
+                break;
+        }
+    }
+
+    self.set_selected_version_tab = function(version_tab) {
+        if (version_tab == self.vue.version_menu_data.selected_version_tab) {
+            return;
+        }
+
+        self.lock_increment();
+
+        self.vue.version_menu_data.selected_version_tab = version_tab;
+        self.vue.version_menu_data.selected_version_warning = get_inc_warning(version_tab);
+    }
+
+    self.is_selected_version_tab = function(version_tab) {
+        return self.vue.version_menu_data.selected_version_tab == version_tab;
+    }
+
+    self.unlock_increment = function() {
+        if (self.increment_locked == false) {
+            self.lock_increment();
+            return;
+        }
+
+        $('#increment-form').find('input[type=submit]').prop('disabled', false);
+        $('.inc-lock i').removeClass('fa-lock');
+        $('.inc-lock i').addClass('fa-unlock');
+
+        self.increment_locked = false;
+    }
+
+    self.lock_increment = function() {
+        $('#increment-form').find('input[type=submit]').prop('disabled', true);
+        $('.inc-lock i').addClass('fa-lock');
+        $('.inc-lock i').removeClass('fa-unlock');
+
+        self.increment_locked = true;
+    }
+
+    self.increment = function(version) {
+        $.post(inc_version_url, {
+            project_id: project_id,
+            version: version,
+            current_version: self.vue.project.version
+        }, function(data) {
+            $.web2py.enableElement($(".inc-button input"));
+            self.lock_increment();
+
+            self.vue.project.version = data.version;
+
+            if (version == VERSION_PATCH) {
+                self.vue.project.versions.shift();
+            }
+
+            self.vue.project.versions.unshift(data.version);
+        });
+    }
+
+    self.is_selected_settings_tab = function(tab) {
+        return self.vue.settings_menu_data.selected_settings_tab == tab;
+    }
+
+    self.set_selected_settings_tab = function(tab) {
+        self.vue.settings_menu_data.selected_settings_tab = tab;
+        Vue.nextTick(self.lock_settings_button);
+    }
+
+    self.unlock_settings_button = function() {
+        if (!self.vue.settings_menu_data.button_locked) {
+            self.lock_settings_button();
+            return;
+        }
+
+        $('.settings-form').find('input[type=submit]').prop('disabled', false);
+        $('.settings-button-lock i').addClass('fa-unlock');
+        $('.settings-button-lock i').removeClass('fa-lock');
+
+        self.vue.settings_menu_data.button_locked = false;
+    }
+
+    self.lock_settings_button = function() {
+        $('.settings-form').find('input[type=submit]').prop('disabled', true);
+        $('.settings-button-lock i').addClass('fa-lock');
+        $('.settings-button-lock i').removeClass('fa-unlock');
+
+        self.vue.settings_menu_data.button_locked = true;
+    }
+
+    self.reset_project = function() {
+        $.post(reset_project_url, {
+            project_id: project_id
+        }, function(data) {
+
+            console.log(data);
+            if (!data.reset) {
+                return;
+            }
+
+            console.log(data);
+
+            location.reload();
+        })
+    }
+
+    self.delete_project = function() {
+        $.post(delete_project_url, {
+            project_id: project_id
+        }, function(data) {
+            if (!data.deleted) {
+                return;
+            }
+
+            window.location.href = data.goto;
+        });
+    }
+
     self.init_vue = function() {
         self.vue.selected_priority = 'green';
         self.vue.tracks = tracks;
+
+        self.vue.version_menu_data = VERSION_MENU_DATA;
+        self.vue.settings_menu_data = SETTINGS_MENU_DATA;
     }
+
     // Complete as needed.
     self.vue = new Vue({
         el: "#vue-div",
         delimiters: ['${', '}'],
         unsafeDelimiters: ['!{', '}'],
         data: {
-            project: {name:null, version:null, phase:null, owner:null},
+            project: {name:null, version:null, versions:null, phase:null, owner:null},
             overview_large: "",
             tracks: null,
             selected_priority: null,
             task_active_state: 'marked',
             task_state_icon: MARKED_ICON,
 
+            increment_locked: false,
+
+            version_menu_active: false,
+            version_menu_data: null,
+
+            phase_menu_active: false,
+            phase_menu_data: null,
+
+            settings_menu_active: false,
+            settings_menu_data: null,
+
             // Task Form Models
             form_task_summary: null,
         },
         methods: {
+            get_project: self.get_project,
+            get_selected_browse_version: self.get_selected_browse_version,
+
             set_overview_large: self.set_overview_large,
             is_overview_large: self.is_overview_large,
+
             set_selected_priority: self.set_selected_priority,
+
             is_selected: self.is_selected,
             add_task: self.add_task,
+
             delete_or_unmark_task: self.delete_or_unmark_task,
             delete_or_unmark_icon: self.delete_or_unmark_icon,
+
             get_priority_from_number: self.get_priority_from_number,
+
             set_active_task_state: self.set_active_task_state,
-            activate_state: self.activate_state
+            activate_state: self.activate_state,
+
+            main_bar_select: self.main_bar_select,
+
+            set_selected_version_tab: self.set_selected_version_tab,
+            is_selected_version_tab: self.is_selected_version_tab,
+
+            unlock_increment: self.unlock_increment,
+            increment: self.increment,
+
+            is_selected_settings_tab: self.is_selected_settings_tab,
+            set_selected_settings_tab: self.set_selected_settings_tab,
+
+            unlock_settings_button: self.unlock_settings_button,
+
+            reset_project: self.reset_project,
+            delete_project: self.delete_project,
         }
     });
 
     self.init_vue();
-    self.get_project();
+    self.get_project("latest");
     $("#vue-div").show();
-    $(".nano").nanoScroller();
 
     return self;
 };

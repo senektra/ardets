@@ -2,16 +2,19 @@
     <!--------------------------           Stylesheets              ------------------------------->
     <link rel="stylesheet" href="{{=URL('static','css/index.css')}}"/>
     <link rel="stylesheet" href="{{=URL('static','css/project.css')}}"/>
+    <link rel="stylesheet" href="{{=URL('static','css/project_menu.css')}}"/>
 
     <!--------------------------           JavaScripts              ------------------------------->
     <script src="{{=URL('static', 'js/vue.js')}}"></script>
     <script src="{{=URL('static', 'js/jquery.nanoscroller.js')}}"></script>
     <script>
-        var get_projects_url = "{{=URL('projects_api', 'get_projects')}}";
         var get_project_url = "{{=URL('projects_api', 'get_project', user_signature=True)}}";
+        var reset_project_url = "{{=URL('projects_api', 'reset_project', user_signature=True)}}";
+        var delete_project_url = "{{=URL('projects_api', 'delete_project', user_signature=True)}}";
         var add_task_url = "{{=URL('projects_api', 'add_task', user_signature=True)}}";
         var delete_task_url = "{{=URL('projects_api', 'delete_task', user_signature=True)}}";
         var ch_task_state_url = "{{=URL('projects_api', 'change_task_state', user_signature=True)}}";
+        var inc_version_url = "{{=URL('projects_api', 'increment_version', user_signature=True)}}";
         var project_id = "{{=project_id}}";
     </script>
 {{end}}
@@ -29,11 +32,127 @@
     <!-------             Site Page Content (Actual content of the document)               -------->
     <div id="site-page-content">
 
-        <!-------      Version-Phase Bar (Bar for the version and phase goes here)         -------->
+        <div v-if="version_menu_active" id="version-tab-menu" class="tab-menu-wrapper">
+            <div class="menu-header">Version</div>
+
+            <div id="version-browser">
+                <label id="browse-label">Current Version</label>
+                <select id="browse-version-select">
+                    <option v-for="version in project.versions">${version}</option>
+                </select>
+                <div id="browse-go-wrapper" v-on:click="get_project(get_selected_browse_version())">
+                    <i class="fa fa-arrow-circle-right fa-lg"></i>
+                </div>
+            </div>
+
+            <div id="version-inc-tabs">
+                <ul>
+                    <li v-bind:class="{'selected': is_selected_version_tab('major')}" v-on:click="set_selected_version_tab('major')">Major</li>
+                    <li v-bind:class="{'selected': is_selected_version_tab('minor')}" v-on:click="set_selected_version_tab('minor')">Minor</li>
+                    <li v-bind:class="{'selected': is_selected_version_tab('patch')}" v-on:click="set_selected_version_tab('patch')">Patch</li>
+                </ul>
+            </div>
+
+            <div id="version-inc-menu">
+                <div class="inc-warning">
+                    <p>${version_menu_data.selected_version_warning}</p>
+                </div>
+
+                <div class="inc-button">
+                     <form id="increment-form" action="#" v-on:submit.prevent="increment(version_menu_data.selected_version_tab)" class="form-horizontal" enctype="multipart/form-data" method="post">
+                        <input type="submit" class="increment btn btn-default" value="Increment">
+                     </form>
+                </div>
+
+                <div class="inc-confirm-wrapper">
+                    <div class="inc-lock">
+                        <i v-on:click="unlock_increment()" class="fa fa-lock fa-lg"></i>
+                    </div>
+
+                    <div class="inc-lock-text">
+                        <p>Unlock to Confirm</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div v-if="settings_menu_active" id="settings-tab-menu" class="tab-menu-wrapper">
+            <div class="menu-header">Settings</div>
+
+            <div id="settings-tabs">
+                <ul>
+                    <li v-bind:class="{'selected': is_selected_settings_tab('reset')}" v-on:click="set_selected_settings_tab('reset')">Reset</li>
+                    <li v-bind:class="{'selected': is_selected_settings_tab('freeze')}" v-on:click="set_selected_settings_tab('freeze')">Dev Reset</li>
+                    <li v-bind:class="{'selected': is_selected_settings_tab('delete')}" v-on:click="set_selected_settings_tab('delete')">Delete</li>
+                </ul>
+            </div>
+
+            <div v-if="settings_menu_data.selected_settings_tab == 'reset'" class="settings-tab-menu">
+                <div id="reset-text-wrapper" class="settings-menu-text-wrapper">
+                    <p>
+                        Resetting your project will remove all versions and tasks. The project will
+                        then be set to 0.1.0.
+                    </p>
+                </div>
+
+                <div class="text-menu-confirm">
+                    <div class="warning-text">A reset cannot be undone.</div>
+                </div>
+
+                <div class="menu-button-holder">
+                    <form class="settings-form" action="#" v-on:submit.prevent="reset_project()" class="form-horizontal" enctype="multipart/form-data" method="post">
+                        <input type="submit" class="settings-menu-button btn btn-default" value="Reset">
+                     </form>
+                </div>
+
+                <div class="lock-confirm-wrapper">
+                    <div class="settings-button-lock">
+                        <i v-on:click="unlock_settings_button()" class="fa fa-lock fa-lg"></i>
+                    </div>
+
+                    <div class="settings-button-lock-text">
+                        <p>Unlock to Confirm</p>
+                    </div>
+                </div>
+            </div>
+
+            <div v-if="settings_menu_data.selected_settings_tab == 'freeze'"></div>
+
+            <div v-if="settings_menu_data.selected_settings_tab == 'delete'" class="settings-tab-menu">
+                 <div id="reset-text-wrapper" class="settings-menu-text-wrapper">
+                    <p>
+                        Deleting your project will completely remove everything associated it, and
+                        delete it from our system.
+                    </p>
+                </div>
+
+                <div class="text-menu-confirm">
+                    <div class="warning-text">Deleting your project cannot be undone!</div>
+                </div>
+
+                <div class="menu-button-holder">
+                    <form class="settings-form" action="#" v-on:submit.prevent="delete_project()" class="form-horizontal" enctype="multipart/form-data" method="post">
+                        <input type="submit" class="settings-menu-button btn btn-default" value="To Oblivion">
+                     </form>
+                </div>
+
+                <div class="lock-confirm-wrapper">
+                    <div class="settings-button-lock">
+                        <i v-on:click="unlock_settings_button()" class="fa fa-lock fa-lg"></i>
+                    </div>
+
+                    <div class="settings-button-lock-text">
+                        <p>Unlock to Confirm</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div id="version-phase-bar">
-            <button id="version-button">${project.version}</button>
-            <button id="phase-button">${project.phase}</button>
-            <button id="settings-button">Settings</button>
+            <button id="version-button" v-on:click="main_bar_select('version')">${project.version}</button>
+            <button id="phase-button" v-on:click="main_bar_select('phase')">${project.phase}</button>
+            <button id="settings-button" v-on:click="main_bar_select('settings')">Settings</button>
         </div>
 
         <!----------    Development Tracks (Development track information here)        ------------>

@@ -8,15 +8,11 @@ def get_projects():
 
     projects = []
     has_more = False
-    print start_idx
     q = db.project.project_owner == auth.user_id
 
-    print q
     rows = db(q).select(orderby=db.project.project_name, limitby=(start_idx, end_idx + 1))
-    print rows
     for i, r in enumerate(rows):
         if i < end_idx - start_idx:
-            print r.project_name
             p = dict(
                 id=r.id,
                 project_name=r.project_name,
@@ -26,19 +22,109 @@ def get_projects():
                 created_on=r.created_on,
                 belongs_to_user=True if auth.user_id is not None and auth.user_id == r.project_owner else False
             )
-            print auth.user_id
-            print r.project_owner
-            print "this is dumb"
             projects.append(p)
         else:
             has_more = True
 
-    print projects
     return response.json(dict(
         projects=projects,
         has_more=has_more
     ))
 
+@auth.requires_signature()
+def increment_version():
+    project_id = request.vars.project_id
+    version_to_increment = request.vars.version
+    current_project_version = request.vars.current_version
+
+    project_db = db.project(project_id)
+
+    if project_db is None:
+        return response.json(dict(
+            error="Generic error number 1"
+        ))
+
+    project_version = current_project_version if current_project_version != project_db.project_version else project_db.project_version
+    version_numbers = project_version.split('.')
+    new_proj_ver_junc_phase = "Develop"
+    next_project_phase = "Patch"
+
+    # Create new version
+    version_major_number = int(version_numbers[0])
+    version_minor_number = int(version_numbers[1])
+    version_patch_number = int(version_numbers[2])
+
+    if version_to_increment == "major":
+        version_major_number += 1
+        version_minor_number = 0
+        version_patch_number = 0
+
+    if version_to_increment == "minor":
+        version_minor_number += 1
+        version_patch_number = 0
+
+        if project_db.project_phase != "Production":
+            new_proj_ver_junc_phase = "Archive"
+
+    if version_to_increment == "patch":
+        version_patch_number += 1
+
+    # Format version into string
+    version_string = "%i.%i.%i" % (version_major_number, version_minor_number, version_patch_number)
+
+    print "here"
+    proj_ver_db = None
+
+    print current_project_version
+    print project_db.project_version
+    if current_project_version == project_db.project_version:
+        print "here not there"
+        # Update the project version, not the project_version
+        project_db.project_version = version_string
+
+        if version_to_increment != "patch":
+            proj_ver_id = db.projects_version.insert(
+                project_id=project_db.id,
+                project_version=project_version,
+                project_phase=new_proj_ver_junc_phase
+            )
+
+            proj_ver_db = db.projects_version(proj_ver_id)
+            next_project_phase = "Develop"
+
+    elif version_to_increment == "patch":
+        print "I get here instead?"
+        # We already have a project_version in the database (hopefully) if we get here
+        # If the version to increment is patch, then we just update that projects_verison
+        # version to the new one.
+        proj_ver = db(db.projects_version.project_version == current_project_version).select().first()
+        proj_ver.project_version = version_string
+        proj_ver.update_record()
+    else:
+        # The current version to update is not the current project version (the leading one) and the
+        # version is not patch, then we have to create a new projects_version entry.
+        proj_ver_id = db.projects_version.insert(
+            project_id=project_db.id,
+            project_version=version_string,
+            project_phase='Develop'
+        )
+
+        proj_ver_db = db.projects_version(proj_ver_id)
+
+        old_proj_ver = db(db.projects_version.project_version == project_version).select().first()
+        old_proj_ver.project_phase = new_proj_ver_junc_phase
+
+        next_project_phase = "Develop"
+
+    print "now heres"
+    project_db.update_record()
+
+    return response.json(dict(
+        project_id=project_id,
+        proj_ver=proj_ver_db.project_version if proj_ver_db is not None else None,
+        version=version_string,
+        phase=next_project_phase
+    ))
 
 @auth.requires_signature()
 def change_task_state():
@@ -66,6 +152,7 @@ def add_task():
     task_summary = request.vars.task_summary
     task_priority = int(request.vars.task_priority)
     task_track = request.vars.task_track
+    task_version = request.vars.task_version
 
     if task_summary is None:
         return response.json(dict(error="Task cannot be empty"))
@@ -77,7 +164,6 @@ def add_task():
     if project_db is None:
         return response.json(dict(error="Project not a valid project ID"))
 
-    print "here"
     task_id = db.task.insert(
         project_id=project_db.id,
         priority=task_priority,
@@ -88,10 +174,8 @@ def add_task():
         task_state='marked'
     )
 
-    print "then here"
     task = db.task(task_id)
 
-    print "yeah you did"
     return response.json(dict(
         id=task_id,
         project_id=task.project_id,
@@ -141,6 +225,8 @@ def delete_task():
 
 @auth.requires_signature()
 def get_project():
+    version = request.vars.project_version
+
     if request.vars.project_id is None:
         # No project id given, return empty data.
         return response.json(dict(error="No project ID given"))
@@ -151,23 +237,62 @@ def get_project():
         # No valid entry in database, return error
         response.json(dict(error="Project ID does not exist"))
 
+    if version == project_db.project_version:
+        version = "latest"
+
     # Auth user
+
+    # Set version for tasks
+    task_version = project_db.project_version if version == "latest" else version
 
     # Get tasks
     doc_tasks = db((db.task.development_track == "Documentation") &
-                   (db.task.project_id == project_db.id)).select(db.task.ALL)
+                   (db.task.project_id == project_db.id) & (db.task.project_version == task_version)).select(db.task.ALL)
     opt_tasks = db((db.task.development_track == "Optimization") &
-                   (db.task.project_id == project_db.id)).select(db.task.ALL)
+                   (db.task.project_id == project_db.id) & (db.task.project_version == task_version)).select(db.task.ALL)
     fea_tasks = db((db.task.development_track == "Features") &
-                   (db.task.project_id == project_db.id)).select(db.task.ALL)
+                   (db.task.project_id == project_db.id) & (db.task.project_version == task_version)).select(db.task.ALL)
     tes_tasks = db((db.task.development_track == "Testing") &
-                   (db.task.project_id == project_db.id)).select(db.task.ALL)
+                   (db.task.project_id == project_db.id) & (db.task.project_version == task_version)).select(db.task.ALL)
+
+    # Get versions
+
+    # Prepare the query
+    q = db.projects_version.project_id == request.vars.project_id
+
+    # Get the information
+    versions_db = db(q).select(db.projects_version.ALL)
+
+    print versions_db
+    print "here and not there"
+
+    # Pack the information
+    versions = []
+    for i, proj_ver in enumerate(versions_db):
+        versions.insert(0, proj_ver.project_version)
+
+    # Get project phase from projects_version junction table
+    project_phase = None
+
+    proj_ver_db = db(db.projects_version.project_version == request.vars.project_version).select().first()
+
+    if proj_ver_db is None:
+        if version != "latest":
+            print request.vars.version
+            return response.json(dict(error="Cannot retrieve valid old version"))
+
+    else:
+        project_phase = proj_ver_db.project_phase
+
+    print "here"
 
     # If we get here, then a valid ID was given and we have extracted the project from the database.
     return response.json(dict(
         name=project_db.project_name,
         version=project_db.project_version,
-        phase=project_db.project_phase,
+        versions=versions,
+        requested_version=task_version,
+        phase=project_phase if project_phase is not None else project_db.project_phase,
         doc_tasks=doc_tasks,
         opt_tasks=opt_tasks,
         fea_tasks=fea_tasks,
@@ -214,3 +339,53 @@ def create_project():
     project = db.project(project_id)
 
     return response.json(dict(project=project))
+
+@auth.requires_signature()
+def reset_project():
+    project_id = request.vars.project_id
+
+    if project_id is None:
+        return response.json(dict(error="No project ID given", reset=False))
+
+    project_db = db.project(project_id)
+
+    project_db.project_phase = "Develop"
+    project_db.project_version = "0.1.0"
+
+    tasks = db(db.task.project_id == project_id).select(db.task.ALL)
+    print tasks
+    for task in tasks:
+        del db.task[task.id]
+
+    versions = db(db.projects_version.project_id == project_id).select(db.projects_version.ALL)
+    print versions
+    for version in versions:
+        del db.projects_version[version.id]
+
+    project_db.update_record()
+
+    return response.json(dict(reset=True))
+
+
+@auth.requires_signature()
+def delete_project():
+    project_id = request.vars.project_id
+
+    if project_id is None:
+        return response.json(dict(error="No project ID given", deleted=False))
+
+    tasks = db(db.task.project_id == project_id).select(db.task.ALL)
+    for task in tasks:
+        del db.task[task.id]
+
+    versions = db(db.projects_version.project_id == project_id).select(db.projects_version.ALL)
+    for version in versions:
+        del db.projects_version[version.id]
+
+    proj_users = db(db.projects_user.project_id == project_id).select(db.projects_user.ALL)
+    for proj_user in proj_users:
+        del db.projects_user[proj_user.id]
+
+    del db.project[project_id]
+
+    return response.json(dict(deleted=True, goto=URL('user', 'projects')))

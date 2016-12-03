@@ -1,0 +1,250 @@
+@import "base";
+
+.menu-header {
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+
+///////////////////////////                 Menu Wrapper                   /////////////////////////
+
+.tab-menu-wrapper {
+  margin: auto;
+  width: 75%;
+  min-width: 552px;
+}
+
+///////////////////////////               Version Browser                  /////////////////////////
+
+#version-browser {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  margin-bottom: 10px;
+
+  width: 100%;
+  height: 60px;
+
+  label,
+  select,
+  div {
+    display: inline-block;
+    float: left;
+  }
+
+  #browse-label {
+    height: 60px;
+    line-height: 60px;
+    font-weight: normal;
+
+    padding: 0;
+    margin: 0;
+
+    font-size: 18px;
+
+    margin-right: 20px;
+  }
+
+  #browse-version-select {
+    display: block;
+
+    margin-right: 20px;
+
+    background-color: $mainLightBlue;
+    border: none;
+
+    height: 28px;
+    width: 100px;
+
+    text-align-last: center;
+
+    border-radius: 5px;
+  }
+
+  #browse-go-wrapper:hover {
+    cursor: pointer;
+  }
+}
+
+///////////////////////////                Version Tabs                    /////////////////////////
+
+#version-inc-tabs {
+  ul {
+    display: -webkit-flex;
+    display: flex;
+
+    justify-content: center;
+
+    padding: 0;
+
+    height: 40px;
+    width: 100%;
+
+    list-style-type: none;
+
+    li {
+      display: block;
+      flex: 1;
+
+      width: 33.3%;
+
+      font-size: 18px;
+      line-height: 40px;
+
+      text-align: center;
+    }
+
+    .selected {
+      border-bottom: 3px solid $mainLightBlue;
+    }
+
+    li:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+///////////////////////////                Version Menu                    /////////////////////////
+
+#version-inc-menu {
+  display: flex;
+
+  justify-content: center;
+  flex-direction: column;
+
+  margin-bottom: 20px;
+
+  width: 100%;
+  height: 150px;
+
+  .inc-warning {
+    padding-left: 60px;
+    padding-right: 60px;
+
+    margin-top: 10px;
+
+    color: gray;
+    font-size: 14px;
+  }
+
+  .inc-button {
+    margin: auto;
+    margin-top: 10px;
+
+    input {
+      background-color: $mainLightBlue;
+
+      height: 32px;
+
+      color: black;
+      line-height: 16px;
+    }
+  }
+
+  .inc-confirm-wrapper {
+    display: flex;
+
+    justify-content: center;
+
+    .inc-lock {
+      margin-right: 6px;
+    }
+
+    .inc-lock:hover {
+      cursor:pointer;
+    }
+  }
+}
+
+///////////////////////////                Settings Tabs                   /////////////////////////
+
+#settings-tabs {
+  ul {
+    display: flex;
+
+    justify-content: center;
+
+    height: 40px;
+    width: 100%;
+
+    padding: 0;
+
+    list-style-type: none;
+
+    li {
+      display: block;
+      flex: 1;
+
+      width: 33.3%;
+
+      font-size: 18px;
+      line-height: 40px;
+
+      text-align: center;
+    }
+
+    .selected {
+      border-bottom: 3px solid $mainLightBlue;
+    }
+
+    li:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+///////////////////////////                Settings Menu                   /////////////////////////
+
+.settings-tab-menu {
+  display: flex;
+
+  justify-content: center;
+  flex-direction: column;
+
+  width: 100%;
+
+  .settings-menu-text-wrapper {
+    padding-left: 50px;
+    padding-right: 50px;
+
+    color: gray;
+  }
+
+  .text-menu-confirm {
+    text-align: center;
+    color: crimson;
+  }
+
+  .menu-button-holder {
+    margin: auto;
+    margin-top: 10px;
+
+    input {
+      background-color: $mainLightBlue;
+
+      height: 32px;
+
+      color: black;
+      line-height: 16px;
+    }
+  }
+
+  .lock-confirm-wrapper {
+    display: flex;
+
+    justify-content: center;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    .settings-button-lock {
+      margin-right: 6px;
+    }
+
+    .settings-button-lock:hover {
+      cursor: pointer;
+    }
+    
+  }
+}
