@@ -10,6 +10,7 @@
     <script>
         var get_projects_url = "{{=URL('projects_api', 'get_projects')}}";
         var get_project_url = "{{=URL('projects_api', 'get_project', user_signature=True)}}";
+        var reset_project_url = "{{=URL('projects_api', 'reset_project', user_signature=True)}}";
         var add_task_url = "{{=URL('projects_api', 'add_task', user_signature=True)}}";
         var delete_task_url = "{{=URL('projects_api', 'delete_task', user_signature=True)}}";
         var ch_task_state_url = "{{=URL('projects_api', 'change_task_state', user_signature=True)}}";
@@ -81,9 +82,9 @@
 
             <div id="settings-tabs">
                 <ul>
-                    <li class="selected">Reset</li>
-                    <li>Dev Reset</li>
-                    <li>Delete</li>
+                    <li v-bind:class="{'selected': is_selected_settings_tab('reset')}" v-on:click="set_selected_settings_tab('reset')">Reset</li>
+                    <li v-bind:class="{'selected': is_selected_settings_tab('freeze')}" v-on:click="set_selected_settings_tab('freeze')">Dev Reset</li>
+                    <li v-bind:class="{'selected': is_selected_settings_tab('delete')}" v-on:click="set_selected_settings_tab('delete')">Delete</li>
                 </ul>
             </div>
 
@@ -100,7 +101,7 @@
                 </div>
 
                 <div class="menu-button-holder">
-                    <form class="settings-form" action="#" v-on:submit.prevent="increment(version_menu_data.selected_version_tab)" class="form-horizontal" enctype="multipart/form-data" method="post">
+                    <form class="settings-form" action="#" v-on:submit.prevent="reset_project()" class="form-horizontal" enctype="multipart/form-data" method="post">
                         <input type="submit" class="settings-menu-button btn btn-default" value="Reset">
                      </form>
                 </div>

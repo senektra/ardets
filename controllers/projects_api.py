@@ -59,8 +59,8 @@ def increment_version():
         version_minor_number += 1
         version_patch_number = 0
 
-        if project_db.project_phase != "production":
-            project_db.project_phase = "archived"
+        if project_db.project_phase != "Production":
+            project_db.project_phase = "Archive"
 
     if version_to_increment == "patch":
         version_patch_number += 1
@@ -285,3 +285,37 @@ def create_project():
     project = db.project(project_id)
 
     return response.json(dict(project=project))
+
+@auth.requires_signature()
+def reset_project():
+    project_id = request.vars.project_id
+
+    if project_id is None:
+        return response.json(dict(error="No project ID given", reset=False))
+
+    project_db = db.project(project_id)
+
+    project_db.project_phase = "Develop"
+    project_db.project_version = "0.1.0"
+
+    tasks = db(db.task.project_id == project_id).select(db.task.ALL)
+    print tasks
+    for task in tasks:
+        del db.task[task.id]
+
+    versions = db(db.projects_version.project_id == project_id).select(db.projects_version.ALL)
+    print versions
+    for version in versions:
+        del db.projects_version[version.id]
+
+    project_db.update_record()
+
+    return response.json(dict(reset=True))
+
+@auth.requires_signature()
+def dev_reset_project():
+    pass
+
+@auth.requires_signature()
+def delete_project():
+    pass

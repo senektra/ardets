@@ -32,6 +32,7 @@ var VERSION_MENU_DATA = {
 
 var SETTINGS_MENU_DATA = {
     selected_settings_tab: "reset",
+    button_locked: false
 };
 
 var tracks = {
@@ -282,6 +283,10 @@ var app = function() {
                 self.vue.settings_menu_active = !self.vue.settings_menu_active;
                 self.vue.version_menu_active = false;
                 self.vue.phase_menu_active = false;
+
+                if (self.vue.settings_menu_active) {
+                    Vue.nextTick(self.lock_settings_button);
+                }
                 break;
         }
     }
@@ -315,10 +320,6 @@ var app = function() {
     }
 
     self.lock_increment = function() {
-        if (self.vue.increment_locked == true) {
-            return;
-        }
-
         $('#increment-form').find('input[type=submit]').prop('disabled', true);
         $('.inc-lock i').addClass('fa-lock');
         $('.inc-lock i').removeClass('fa-unlock');
@@ -342,6 +343,51 @@ var app = function() {
 
             self.vue.project.versions.unshift(data.version);
         });
+    }
+
+    self.is_selected_settings_tab = function(tab) {
+        return self.vue.settings_menu_data.selected_settings_tab == tab;
+    }
+
+    self.set_selected_settings_tab = function(tab) {
+        self.vue.settings_menu_data.selected_settings_tab = tab;
+    }
+
+    self.unlock_settings_button = function() {
+        if (!self.vue.settings_menu_data.button_locked) {
+            self.lock_settings_button();
+            return;
+        }
+
+        $('.settings-form').find('input[type=submit]').prop('disabled', false);
+        $('.settings-button-lock i').addClass('fa-unlock');
+        $('.settings-button-lock i').removeClass('fa-lock');
+
+        self.vue.settings_menu_data.button_locked = false;
+    }
+
+    self.lock_settings_button = function() {
+        $('.settings-form').find('input[type=submit]').prop('disabled', true);
+        $('.settings-button-lock i').addClass('fa-lock');
+        $('.settings-button-lock i').removeClass('fa-unlock');
+
+        self.vue.settings_menu_data.button_locked = true;
+    }
+
+    self.reset_project = function() {
+        $.post(reset_project_url, {
+            project_id: project_id
+        }, function(data) {
+
+            console.log(data);
+            if (!data.reset) {
+                return;
+            }
+
+            console.log(data);
+
+            location.reload();
+        })
     }
 
     self.init_vue = function() {
@@ -406,6 +452,13 @@ var app = function() {
 
             unlock_increment: self.unlock_increment,
             increment: self.increment,
+
+            is_selected_settings_tab: self.is_selected_settings_tab,
+            set_selected_settings_tab: self.set_selected_settings_tab,
+
+            unlock_settings_button: self.unlock_settings_button,
+
+            reset_project: self.reset_project,
         }
     });
 
