@@ -150,3 +150,49 @@
 #settings-tabs ul li:hover {
   cursor: pointer;
 }
+
+/* line 198, ../sass/project_menu.scss */
+.settings-tab-menu {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+}
+/* line 206, ../sass/project_menu.scss */
+.settings-tab-menu .settings-menu-text-wrapper {
+  padding-left: 50px;
+  padding-right: 50px;
+  color: gray;
+}
+/* line 213, ../sass/project_menu.scss */
+.settings-tab-menu .text-menu-confirm {
+  text-align: center;
+  color: crimson;
+}
+/* line 218, ../sass/project_menu.scss */
+.settings-tab-menu .menu-button-holder {
+  margin: auto;
+  margin-top: 10px;
+}
+/* line 222, ../sass/project_menu.scss */
+.settings-tab-menu .menu-button-holder input {
+  background-color: #b0dce5;
+  height: 32px;
+  color: black;
+  line-height: 16px;
+}
+/* line 232, ../sass/project_menu.scss */
+.settings-tab-menu .lock-confirm-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+/* line 240, ../sass/project_menu.scss */
+.settings-tab-menu .lock-confirm-wrapper .settings-button-lock {
+  margin-right: 6px;
+}
+/* line 244, ../sass/project_menu.scss */
+.settings-tab-menu .lock-confirm-wrapper .settings-button-lock:hover {
+  cursor: pointer;
+}

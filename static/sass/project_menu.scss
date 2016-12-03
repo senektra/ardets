@@ -192,3 +192,58 @@
     }
   }
 }
+
+///////////////////////////                Settings Menu                   /////////////////////////
+
+.settings-tab-menu {
+  display: flex;
+
+  justify-content: center;
+  flex-direction: column;
+
+  width: 100%;
+
+  .settings-menu-text-wrapper {
+    padding-left: 50px;
+    padding-right: 50px;
+
+    color: gray;
+  }
+
+  .text-menu-confirm {
+    text-align: center;
+    color: crimson;
+  }
+
+  .menu-button-holder {
+    margin: auto;
+    margin-top: 10px;
+
+    input {
+      background-color: $mainLightBlue;
+
+      height: 32px;
+
+      color: black;
+      line-height: 16px;
+    }
+  }
+
+  .lock-confirm-wrapper {
+    display: flex;
+
+    justify-content: center;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    .settings-button-lock {
+      margin-right: 6px;
+    }
+
+    .settings-button-lock:hover {
+      cursor: pointer;
+    }
+    
+  }
+}

@@ -87,7 +87,7 @@
                 </ul>
             </div>
 
-            <div v-if="settings_menu_data.selected_settings_tab == 'reset'">
+            <div v-if="settings_menu_data.selected_settings_tab == 'reset'" class="settings-tab-menu">
                 <div id="reset-text-wrapper" class="settings-menu-text-wrapper">
                     <p>
                         Resetting your project will remove all versions and tasks. The project will
@@ -95,20 +95,24 @@
                     </p>
                 </div>
 
-                <div id="reset-menu-confirm">
+                <div class="text-menu-confirm">
                     <div class="warning-text">A reset cannot be undone.</div>
                 </div>
 
                 <div class="menu-button-holder">
-                    <button id="project-reset-button">Reset</button>
+                    <form class="settings-form" action="#" v-on:submit.prevent="increment(version_menu_data.selected_version_tab)" class="form-horizontal" enctype="multipart/form-data" method="post">
+                        <input type="submit" class="settings-menu-button btn btn-default" value="Reset">
+                     </form>
                 </div>
 
-                <div class="settings-button-lock">
-                    <i v-on:click="unlock_settings_button()" class="fa fa-lock fa-lg"></i>
-                </div>
+                <div class="lock-confirm-wrapper">
+                    <div class="settings-button-lock">
+                        <i v-on:click="unlock_settings_button()" class="fa fa-lock fa-lg"></i>
+                    </div>
 
-                <div class="settings-button-lock-text">
-                    <p>Unlock to Confirm</p>
+                    <div class="settings-button-lock-text">
+                        <p>Unlock to Confirm</p>
+                    </div>
                 </div>
             </div>
 
