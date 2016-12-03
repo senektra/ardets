@@ -23,7 +23,8 @@ db.project.project_version.requires = IS_NOT_EMPTY()
 
 db.define_table('projects_version',
                 Field('project_id', 'integer'),
-                Field('project_version', 'text')
+                Field('project_version', 'text'),
+                Field('project_phase', 'text')
                 )
 
 db.define_table('projects_user',

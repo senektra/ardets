@@ -109,6 +109,7 @@ var app = function() {
             project_version: version
         }, function(data) {
             if (data.error) {
+                console.log(data.error);
                 return;
             }
 
@@ -132,7 +133,7 @@ var app = function() {
     }
 
     self.get_selected_browse_version = function() {
-        return $('#browse-version-select').find(":selected").text();
+        return $('#browse-version-select').val();
     }
 
     self.add_task = function() {
@@ -271,7 +272,10 @@ var app = function() {
                 self.vue.settings_menu_active = false;
 
                 if (self.vue.version_menu_active) {
-                    Vue.nextTick(self.lock_increment);
+                    Vue.nextTick(function() {
+                        self.lock_increment();
+                        $("#browse-version-select").val(self.vue.project.version);
+                    });
                 }
                 break;
             case 'phase':
@@ -330,7 +334,8 @@ var app = function() {
     self.increment = function(version) {
         $.post(inc_version_url, {
             project_id: project_id,
-            version: version
+            version: version,
+            current_version: self.vue.project.version
         }, function(data) {
             $.web2py.enableElement($(".inc-button input"));
             self.lock_increment();
@@ -351,6 +356,7 @@ var app = function() {
 
     self.set_selected_settings_tab = function(tab) {
         self.vue.settings_menu_data.selected_settings_tab = tab;
+        Vue.nextTick(self.lock_settings_button);
     }
 
     self.unlock_settings_button = function() {
@@ -388,6 +394,18 @@ var app = function() {
 
             location.reload();
         })
+    }
+
+    self.delete_project = function() {
+        $.post(delete_project_url, {
+            project_id: project_id
+        }, function(data) {
+            if (!data.deleted) {
+                return;
+            }
+
+            window.location.href = data.goto;
+        });
     }
 
     self.init_vue = function() {
@@ -459,6 +477,7 @@ var app = function() {
             unlock_settings_button: self.unlock_settings_button,
 
             reset_project: self.reset_project,
+            delete_project: self.delete_project,
         }
     });
 
