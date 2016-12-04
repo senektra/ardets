@@ -5,10 +5,9 @@
 }
 
 .user-page-title {
-  display: inline-block;
-
-  font-family: Raleway;
-  font-size: 40px;
+  margin-top: 30px;
+  font-family: Roboto;
+  font-size: 30px;
 }
 
 #projects-buttons-bar {
@@ -190,6 +189,11 @@
     width: 100%;
 
     tr {
+      height: 40px;
+      font-size: 25px;
+    }
+
+    tr {
       :first-child {
         padding-left: 10px;
       }
@@ -206,7 +210,7 @@
 
     tr.projects {
       border-top: 1px solid #c7c7c7;
-      font-size: 17px;
+      font-size: 18px;
     }
 
     tr.projects td {

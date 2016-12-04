@@ -25,31 +25,64 @@ html footer, body footer {
 
 /* line 26, ../sass/_main.scss */
 #site-page-header {
-  margin-top: 70px;
-  height: 70px;
+  margin-top: 10px;
+  height: 120px;
   width: 100%;
 }
 
 /* line 32, ../sass/_main.scss */
+.main-header {
+  display: flex;
+  align-items: center;
+  height: 35px;
+  border-bottom: 1px solid #d8d8d8;
+  margin-bottom: 10px;
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+/* line 44, ../sass/_main.scss */
+.main-header .home {
+  font-size: 20px;
+  font-family: Raleway;
+}
+/* line 49, ../sass/_main.scss */
+.main-header .user-buttons {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+/* line 54, ../sass/_main.scss */
+.main-header .user-buttons .button a {
+  text-decoration: none;
+  color: black;
+}
+/* line 59, ../sass/_main.scss */
+.main-header .user-buttons .button a:hover {
+  cursor: pointer;
+  color: #47adc2;
+}
+/* line 64, ../sass/_main.scss */
+.main-header .user-buttons #projects {
+  margin-left: 15px;
+}
+
+/* line 70, ../sass/_main.scss */
 #site-page-content {
   width: 100%;
 }
 
-/* line 36, ../sass/_main.scss */
+/* line 74, ../sass/_main.scss */
 #vue-div {
   margin: auto;
   max-width: 1000px;
 }
 
-/* line 4, ../sass/project.scss */
-#site-page-header {
-  margin-bottom: 20px;
-}
-
-/* line 8, ../sass/project.scss */
+/* line 7, ../sass/project.scss */
 .user-page-title {
+  margin-top: 30px;
   font-family: Roboto;
-  font-size: 25px;
+  font-size: 30px;
 }
 
 /* line 13, ../sass/project.scss */

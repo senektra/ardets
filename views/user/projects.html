@@ -20,7 +20,18 @@
 
     <!-- Site Page Header (First upper part of the document) -->
     <div id="site-page-header">
-        <div class="user-page-title">PROJECTS</div>
+        <div class="main-header">
+            <div class="home">ARDeTS</div>
+            <div class="user-buttons">
+                <div class="button" id="logout">
+                    <a href="{{=URL('ARDeTS/default', 'user', 'logout')}}">
+                        <i class="fa fa-sign-out fa-lg"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="user-page-title">Your Projects</div>
     </div>
 
     <!-- Site Page Content (Actual content of the document) -->

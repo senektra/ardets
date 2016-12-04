@@ -11,19 +11,22 @@
         <h1 id="site-title">ARDeTS</h1>
         <span id="site-full-title">Assistive Rapid Development Tracking System</span>
     </div>
-    <nav>
+    <div id="log-buttons">
         <ul>
             <li>
-                <a href="{{=URL("default", "why-ardets")}}">Why ARDeTS</a>
+                <a href="{{=URL("user", "projects")}}">
+                    <i class="fa fa-sign-in fa-2x"></i>
+                    <span class="button-text">Login</span>
+                </a>
             </li>
             <li>
-                <a href="{{=URL("default", "documentation")}}">Documentation</a>
-            </li>
-            <li>
-                <a href="{{=URL("default", "about-us")}}">About Us</a>
+                <a href="{{=URL("ARDeTS/default", "user", "logout")}}">
+                    <i class="fa fa-sign-out fa-2x"></i>
+                    <span class="button-text">Logout</span>
+                </a>
             </li>
         </ul>
-    </nav>
+    </div>
 </header>
 
 <div id="site-divider"></div>
@@ -33,23 +36,43 @@
         <h2>Development Life Cycle for Rapid Development</h2>
         <p>
             ARDeTS aspires to be a development life cycle technology that aims to help those working
-            on a rapidly developing application. Inspired by needs of a rapidly developing application,
-            ARDeTS was envisioned first as a simple tracking system. However, much of its potential was
-            limited to manual handwork. Named first the "Development Tracking System", I tend to to take
-            this idea where I couldn't before, using the power of a web application to automate most of
-            what a developer need not worry about while developing.
+            on a rapidly developing application. Originally created to support a project under rapid
+            development, the idea has been taken further using web technology to create a more robust
+            system. We are however still in early development and a lot of things are either broken or
+            just not in place yet. We hope that early users will provide feedback via Git (we would
+            really love it!).
         </p>
+        <div id="phase-line">
+            <i class="fa fa-flask fa-2x"></i><span>Development</span>
+            <i class="fa fa-angle-double-right fa-2x"></i>
+            <i class="fa fa-cubes fa-2x"></i><span>Staging</span>
+            <i class="fa fa-angle-double-right fa-2x"></i>
+            <i class="fa fa-rocket fa-2x"></i><span>Production</span>
+        </div>
     </article>
     <article>
         <h2>Semantic Versioning Deployment</h2>
         <p>
-            ARDeTS will follow a three "phase" development life cycle, leveraging SEMVER versioning. The
-            first phase, Development, is where an application goes through the process of obtaining new
-            features, general maintenance and optimization. The Staging phase sees that an application be
-            tested in a controlled environment. This ensures an application will behave as expected in the
-            real world. The final phase, Production, is where an application is shipped or deployed to the
-            real world for actual end users to use
+            ARDeTS will use SEMVER versioning to automate some of the nitty gritty work developers should
+            not need to worry about. This includes archiving old versions, maintaining production domain
+            applications, and some other cool features. Some of them are implemented, but most of them
+            are not. We hope to make it even easier in the feature with Git integration!
         </p>
+        <div id="ardets-version">
+            <i class="fa fa-tag fa-2x"></i>
+            <span>Current ARDeTS Version {{=version}}</span>
+        </div>
+    </article>
+    <article>
+        <h2>The Team</h2>
+        <p>
+            Currently just one poor college student and his willpower to create meaningful apps (or
+            what he thinks is at least meaningful)!
+        </p>
+        <div id="with-love">
+            <span>Made with</span>
+            <i class="fa fa-heart fa-2x"></i>
+        </div>
     </article>
 </main>
 

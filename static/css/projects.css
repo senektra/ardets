@@ -6,19 +6,19 @@
 
 /* line 7, ../sass/projects.scss */
 .user-page-title {
-  display: inline-block;
-  font-family: Raleway;
-  font-size: 40px;
+  margin-top: 30px;
+  font-family: Roboto;
+  font-size: 30px;
 }
 
-/* line 14, ../sass/projects.scss */
+/* line 13, ../sass/projects.scss */
 #projects-buttons-bar {
   margin-bottom: 20px;
   height: 45px;
   width: 100%;
   box-shadow: 0px 8px 5px -5px #d8d8d8;
 }
-/* line 22, ../sass/projects.scss */
+/* line 21, ../sass/projects.scss */
 #projects-buttons-bar button {
   display: inline-block;
   float: left;
@@ -35,32 +35,32 @@
   border: 1px solid #c4c4c4;
   box-shadow: none;
 }
-/* line 46, ../sass/projects.scss */
+/* line 45, ../sass/projects.scss */
 #projects-buttons-bar button:first-child {
   border-right: 0px;
 }
-/* line 50, ../sass/projects.scss */
+/* line 49, ../sass/projects.scss */
 #projects-buttons-bar button:hover {
   background-color: #d8d8d8;
 }
 
-/* line 55, ../sass/projects.scss */
+/* line 54, ../sass/projects.scss */
 .form-horizontal {
   margin: auto;
   height: 200px;
 }
-/* line 59, ../sass/projects.scss */
+/* line 58, ../sass/projects.scss */
 .form-horizontal #form-header {
   margin: auto;
   width: 60%;
   min-width: 600px;
   font-size: 24px;
 }
-/* line 66, ../sass/projects.scss */
+/* line 65, ../sass/projects.scss */
 .form-horizontal .form-group {
   margin: 0;
 }
-/* line 70, ../sass/projects.scss */
+/* line 69, ../sass/projects.scss */
 .form-horizontal .form-control {
   float: left;
   display: inline-block;
@@ -70,7 +70,7 @@
   box-sizing: border-box;
   border-bottom: 2px solid #b0dce5;
 }
-/* line 81, ../sass/projects.scss */
+/* line 80, ../sass/projects.scss */
 .form-horizontal input,
 .form-horizontal select,
 .form-horizontal label {
@@ -85,40 +85,40 @@
   font-weight: normal;
   box-sizing: border-box;
 }
-/* line 98, ../sass/projects.scss */
+/* line 97, ../sass/projects.scss */
 .form-horizontal label {
   padding-right: 10px;
 }
-/* line 102, ../sass/projects.scss */
+/* line 101, ../sass/projects.scss */
 .form-horizontal input {
   padding-bottom: 0px;
   text-align: left;
   font-size: 15px;
 }
-/* line 108, ../sass/projects.scss */
+/* line 107, ../sass/projects.scss */
 .form-horizontal #project_name_row {
   margin: auto;
   width: 60%;
   min-width: 600px;
 }
-/* line 113, ../sass/projects.scss */
+/* line 112, ../sass/projects.scss */
 .form-horizontal #project_name_row label {
   width: 12%;
 }
-/* line 117, ../sass/projects.scss */
+/* line 116, ../sass/projects.scss */
 .form-horizontal #project_name_row label:first-child {
   width: initial;
   text-align: left;
 }
-/* line 122, ../sass/projects.scss */
+/* line 121, ../sass/projects.scss */
 .form-horizontal #project_name_row input {
   width: 40%;
 }
-/* line 126, ../sass/projects.scss */
+/* line 125, ../sass/projects.scss */
 .form-horizontal #project_name_row select {
   width: 18%;
 }
-/* line 131, ../sass/projects.scss */
+/* line 130, ../sass/projects.scss */
 .form-horizontal #form-phase {
   float: left;
   display: inline-block;
@@ -130,38 +130,38 @@
   font-size: 15px;
   outline: none;
 }
-/* line 143, ../sass/projects.scss */
+/* line 142, ../sass/projects.scss */
 .form-horizontal #project-version-row {
   margin: auto;
   width: 60%;
   min-width: 600px;
 }
-/* line 148, ../sass/projects.scss */
+/* line 147, ../sass/projects.scss */
 .form-horizontal #project-version-row label {
   width: 22.3%;
 }
-/* line 152, ../sass/projects.scss */
+/* line 151, ../sass/projects.scss */
 .form-horizontal #project-version-row label:first-child {
   width: initial;
   text-align: left;
 }
-/* line 157, ../sass/projects.scss */
+/* line 156, ../sass/projects.scss */
 .form-horizontal #project-version-row input {
   width: 12%;
   padding-right: 0px;
 }
-/* line 163, ../sass/projects.scss */
+/* line 162, ../sass/projects.scss */
 .form-horizontal #button-holder {
   margin-top: 15px;
   margin: auto;
   width: 60%;
   min-width: 600px;
 }
-/* line 170, ../sass/projects.scss */
+/* line 169, ../sass/projects.scss */
 .form-horizontal .help-block {
   color: red;
 }
-/* line 174, ../sass/projects.scss */
+/* line 173, ../sass/projects.scss */
 .form-horizontal #create_project_submit {
   display: block;
   padding: 5px;
@@ -172,20 +172,25 @@
   text-transform: none;
 }
 
-/* line 185, ../sass/projects.scss */
+/* line 184, ../sass/projects.scss */
 #projects-list {
   display: inline-block;
   width: 100%;
 }
-/* line 189, ../sass/projects.scss */
+/* line 188, ../sass/projects.scss */
 #projects-list table {
   width: 100%;
 }
-/* line 193, ../sass/projects.scss */
+/* line 191, ../sass/projects.scss */
+#projects-list table tr {
+  height: 40px;
+  font-size: 25px;
+}
+/* line 197, ../sass/projects.scss */
 #projects-list table tr :first-child {
   padding-left: 10px;
 }
-/* line 198, ../sass/projects.scss */
+/* line 202, ../sass/projects.scss */
 #projects-list table tr#header th {
   height: 40px;
   color: black;
@@ -193,16 +198,16 @@
   font-family: Roboto;
   font-weight: 400;
 }
-/* line 207, ../sass/projects.scss */
+/* line 211, ../sass/projects.scss */
 #projects-list table tr.projects {
   border-top: 1px solid #c7c7c7;
-  font-size: 17px;
+  font-size: 18px;
 }
-/* line 212, ../sass/projects.scss */
+/* line 216, ../sass/projects.scss */
 #projects-list table tr.projects td {
   height: 30px;
 }
-/* line 216, ../sass/projects.scss */
+/* line 220, ../sass/projects.scss */
 #projects-list table tr.projects:hover {
   background-color: #bfe0e8;
   cursor: pointer;
