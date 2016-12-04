@@ -1,80 +1,162 @@
 @import url("https://fonts.googleapis.com/css?family=Raleway|Maven+Pro:500");
 /* line 12, ../sass/index.scss */
 header#site-top {
-  display: block;
-  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   margin-top: 70px;
   width: 100%;
 }
 
-/* line 23, ../sass/index.scss */
+/* line 24, ../sass/index.scss */
 #site-title-container {
+  margin: auto;
   display: inline-block;
-  width: 48%;
+  width: 100%;
+  text-align: center;
 }
 
-/* line 29, ../sass/index.scss */
+/* line 32, ../sass/index.scss */
 #site-full-title {
   font-size: 18px;
 }
 
-/* line 33, ../sass/index.scss */
+/* line 36, ../sass/index.scss */
 #site-title {
   font-family: Raleway;
   font-size: 60px;
 }
 
-/* line 38, ../sass/index.scss */
-header nav {
-  display: inline-block;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 40%;
-  font-size: 15px;
+/* line 41, ../sass/index.scss */
+#log-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  height: 40px;
 }
 /* line 49, ../sass/index.scss */
-header nav ul {
+#log-buttons ul {
   display: block;
-  float: right;
   margin: 0;
   padding: 0;
   line-height: 10px;
 }
-/* line 59, ../sass/index.scss */
-header nav ul li {
+/* line 58, ../sass/index.scss */
+#log-buttons ul li {
   display: inline-block;
   list-style-type: none;
-  padding-left: 20px;
-  padding-right: 20px;
   float: left;
   height: 20px;
-  line-height: 20px;
-  border-right: 1px solid gray;
+}
+/* line 64, ../sass/index.scss */
+#log-buttons ul li a {
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
 }
 /* line 70, ../sass/index.scss */
-header nav ul li:last-child {
-  border-right: none;
+#log-buttons ul li a:hover {
+  cursor: pointer;
+  color: gray;
+}
+/* line 75, ../sass/index.scss */
+#log-buttons ul li .button-text {
+  font-size: 20px;
+  margin-left: 10px;
+  padding-bottom: 5px;
+  line-height: 29px;
+  text-decoration: none;
+  border: none;
+}
+/* line 85, ../sass/index.scss */
+#log-buttons ul li:first-child {
+  margin-right: 30px;
 }
 
-/* line 80, ../sass/index.scss */
+/* line 95, ../sass/index.scss */
 #site-divider {
-  margin-top: 28px;
+  margin-top: 10px;
   margin-bottom: 50px;
-  height: 37px;
-  background-color: #085394;
+  height: 8px;
+  background-color: #47adc2;
 }
 
-/* line 93, ../sass/index.scss */
+/* line 108, ../sass/index.scss */
 #site-content article {
   margin-bottom: 50px;
 }
-/* line 96, ../sass/index.scss */
+/* line 111, ../sass/index.scss */
 #site-content article h2 {
   margin-bottom: 28px;
 }
-/* line 100, ../sass/index.scss */
+/* line 115, ../sass/index.scss */
 #site-content article p {
-  padding-right: 30%;
   font-size: 18px;
+}
+
+/* line 120, ../sass/index.scss */
+#site-content {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: auto;
+  text-align: center;
+  width: 80%;
+  min-width: 552px;
+  max-width: 800px;
+}
+
+/* line 133, ../sass/index.scss */
+#phase-line {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  height: 40px;
+  color: #47adc2;
+}
+/* line 144, ../sass/index.scss */
+#phase-line i {
+  margin-right: 10px;
+}
+/* line 148, ../sass/index.scss */
+#phase-line span {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+/* line 154, ../sass/index.scss */
+#ardets-version {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  height: 40px;
+  color: #47adc2;
+}
+/* line 165, ../sass/index.scss */
+#ardets-version i {
+  margin-right: 10px;
+}
+/* line 169, ../sass/index.scss */
+#ardets-version span {
+  font-size: 20px;
+}
+
+/* line 174, ../sass/index.scss */
+#with-love {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  height: 40px;
+  color: #47adc2;
+}
+/* line 185, ../sass/index.scss */
+#with-love i {
+  margin-left: 10px;
+}
+/* line 189, ../sass/index.scss */
+#with-love span {
+  font-size: 20px;
 }

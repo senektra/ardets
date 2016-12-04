@@ -1,3 +1,5 @@
+# This controller is only used for page routing
+
 @auth.requires_login()
 def projects():
     if request.args(0) is not None:

@@ -26,6 +26,23 @@
 
     <!-------             Site Page Header (First upper part of the document               -------->
     <div id="site-page-header">
+        <div class="main-header">
+            <div class="home">ARDeTS</div>
+            <div class="user-buttons">
+                <div class="button" id="logout">
+                    <a href="{{=URL('ARDeTS/default', 'user', 'logout')}}">
+                        <i class="fa fa-sign-out fa-lg"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+                <div class="button" id="projects">
+                    <a href="{{=URL('user', 'projects')}}">
+                        <i class="fa fa-chevron-circle-left fa-lg"></i>
+                        <span>Projects</span>
+                    </a>
+                </div>
+            </div>
+        </div>
         <div class="user-page-title">${project.name}</div>
     </div>
 

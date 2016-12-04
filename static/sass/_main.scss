@@ -24,9 +24,47 @@ html, body {
 }
 
 #site-page-header {
-    margin-top: 70px;
-    height: 70px;
+    margin-top: 10px;
+    height: 120px;
     width: 100%;
+}
+
+.main-header {
+  display: flex;
+  align-items: center;
+
+  height: 35px;
+  border-bottom: 1px solid #d8d8d8;
+  margin-bottom: 10px;
+
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  .home {
+    font-size: 20px;
+    font-family: Raleway;
+  }
+
+  .user-buttons {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+
+    .button a {
+      text-decoration: none;
+      color: black;
+    }
+
+    .button a:hover {
+      cursor: pointer;
+      color: $mainDarkBlue;
+    }
+
+    #projects {
+      margin-left: 15px;
+    }
+  }
 }
 
 #site-page-content {

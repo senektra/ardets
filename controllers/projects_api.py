@@ -1,4 +1,4 @@
-import json
+import string
 
 
 @auth.requires_signature()
@@ -310,6 +310,10 @@ def create_project():
 
     if project_name is "":
         return response.json(dict(error="Project name cannot be empty."))
+
+    invalid_chars = set(string.punctuation.replace("_", "").replace("-", "") + " ")
+    if any(char in invalid_chars for char in project_name):
+        return response.json(dict(error="Invalid characters in project name (Alphanumeric, underscores, and dashes allowed"))
 
     if project_phase is "":
         return response.json(dict(error="You must select a project phase."))
