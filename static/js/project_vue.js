@@ -340,7 +340,10 @@ var app = function() {
             $.web2py.enableElement($(".inc-button input"));
             self.lock_increment();
 
+            console.log(data)
+
             self.vue.project.version = data.version;
+            self.vue.project.phase = data.phase;
 
             if (version == VERSION_PATCH) {
                 self.vue.project.versions.shift();
