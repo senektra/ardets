@@ -35,6 +35,10 @@ var SETTINGS_MENU_DATA = {
     button_locked: false
 };
 
+var PHASE_MENU_DATA = {
+    button_locked: false
+};
+
 var tracks = {
     "Documentation": {
         title: DOCUMENTATION,
@@ -282,6 +286,10 @@ var app = function() {
                 self.vue.phase_menu_active = !self.vue.phase_menu_active;
                 self.vue.version_menu_active = false;
                 self.vue.settings_menu_active = false;
+
+                if (self.vue.phase_menu_active) {
+                    Vue.nextTick(self.lock_phase_button);
+                }
                 break;
             case 'settings':
                 self.vue.settings_menu_active = !self.vue.settings_menu_active;
@@ -411,12 +419,61 @@ var app = function() {
         });
     }
 
+    self.unlock_phase_button = function() {
+        if (!self.vue.phase_menu_data.button_locked) {
+            self.lock_phase_button();
+            return;
+        }
+
+        $('.phase-form').find('input[type=submit]').prop('disabled', false);
+        $('.phase-button-lock i').addClass('fa-unlock');
+        $('.phase-button-lock i').removeClass('fa-lock');
+
+        self.vue.phase_menu_data.button_locked = false;
+    }
+
+    self.lock_phase_button = function() {
+        $('.phase-form').find('input[type=submit]').prop('disabled', true);
+        $('.phase-button-lock i').addClass('fa-lock');
+        $('.phase-button-lock i').removeClass('fa-unlock');
+
+        self.vue.phase_menu_data.button_locked = true;
+    }
+
+    self.get_next_phase = function() {
+        switch(self.vue.project.phase) {
+            case "Develop":
+                return "Staging";
+            case "Staging":
+                return "Production";
+            case "Production":
+                return "Archive";
+        }
+    }
+
+    self.next_project_phase = function() {
+        $.post(next_phase_url, {
+            project_id: project_id
+        }, function(data) {
+            if (data.error || data.new_phase == "") {
+                console.error("Error bumping phase");
+                return;
+            }
+
+            $.web2py.enableElement($(".phase-menu-button"));
+            self.lock_phase_button();
+
+            self.vue.project.phase = data.new_phase;
+        });
+    }
+
     self.init_vue = function() {
         self.vue.selected_priority = 'green';
         self.vue.tracks = tracks;
 
         self.vue.version_menu_data = VERSION_MENU_DATA;
         self.vue.settings_menu_data = SETTINGS_MENU_DATA;
+        self.vue.phase_menu_data = PHASE_MENU_DATA;
     }
 
     // Complete as needed.
@@ -481,6 +538,10 @@ var app = function() {
 
             reset_project: self.reset_project,
             delete_project: self.delete_project,
+
+            unlock_phase_button: self.unlock_phase_button,
+            get_next_phase: self.get_next_phase,
+            next_project_phase: self.next_project_phase,
         }
     });
 

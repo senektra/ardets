@@ -157,6 +157,26 @@
   }
 }
 
+///////////////////////////                  Phase Menu                    /////////////////////////
+
+.phase-button-lock {
+  margin-right: 10px;
+}
+
+.phase-button-lock:hover {
+  cursor: pointer;
+}
+
+.phase-form {
+  display: flex;
+  justify-content: center;
+}
+
+#last-phase-warning {
+  color: $mainDarkBlue;
+  margin-bottom: 10px;
+}
+
 ///////////////////////////                Settings Tabs                   /////////////////////////
 
 #settings-tabs {

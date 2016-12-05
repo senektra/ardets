@@ -222,7 +222,31 @@ def delete_task():
         ))
 
 
+@auth.requires_signature()
+def next_phase():
+    project_id = request.vars.project_id
 
+    project_db = db.project(project_id)
+    if project_db is None:
+        return response.json(dict(error="Invalid project id given"))
+
+    phase = project_db.project_phase
+    new_phase = ""
+
+    if phase == "Develop":
+        new_phase = "Staging"
+
+    if phase == "Staging":
+        new_phase = "Production"
+
+    if phase == "Production":
+        new_phase = "Archive"
+
+    if new_phase != "":
+        project_db.project_phase = new_phase
+        project_db.update_record()
+
+    return response.json(dict(new_phase=new_phase))
 
 
 @auth.requires_signature()
