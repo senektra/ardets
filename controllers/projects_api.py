@@ -72,13 +72,9 @@ def increment_version():
     # Format version into string
     version_string = "%i.%i.%i" % (version_major_number, version_minor_number, version_patch_number)
 
-    print "here"
     proj_ver_db = None
 
-    print current_project_version
-    print project_db.project_version
     if current_project_version == project_db.project_version:
-        print "here not there"
         # Update the project version, not the project_version
         project_db.project_version = version_string
 
@@ -90,11 +86,9 @@ def increment_version():
             )
 
             proj_ver_db = db.projects_version(proj_ver_id)
-
-        next_project_phase = "Develop"
+            next_project_phase = "Develop"
 
     elif version_to_increment == "patch":
-        print "I get here instead?"
         # We already have a project_version in the database (hopefully) if we get here
         # If the version to increment is patch, then we just update that projects_verison
         # version to the new one.
@@ -117,6 +111,13 @@ def increment_version():
         old_proj_ver.project_phase = new_proj_ver_junc_phase
 
         next_project_phase = "Develop"
+
+    if version_to_increment == "patch":
+        tasks = db(db.task.project_version == current_project_version).select(db.task.ALL)
+
+        for task in tasks:
+            task.project_version = version_string
+            task.update_record()
 
     project_db.project_phase = next_project_phase
     project_db.update_record()
@@ -170,7 +171,7 @@ def add_task():
         project_id=project_db.id,
         priority=task_priority,
         summary=task_summary,
-        project_version=project_db.project_version,
+        project_version=task_version,
         is_finished = False,
         development_track=task_track,
         task_state='marked'
