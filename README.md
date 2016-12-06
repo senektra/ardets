@@ -1,7 +1,7 @@
 # ARDeTS
 #### Augmented Rapid Development Tracking System
 
-Version 0.1.0-alpha currently running at https://wolfchase.pythonanywhere.com/ardets
+Version 0.1.0-beta currently running at https://wolfchase.pythonanywhere.com/ardets
 
 ### Current Files of Interest
 
