@@ -151,6 +151,8 @@ var app = function() {
             if (data.error) {
                 return;
             }
+            $.web2py.enableElement($("#add_task_submit"));
+
 
             self.vue.tracks[data.development_track].tasks.unshift(data);
 
@@ -467,6 +469,23 @@ var app = function() {
         });
     }
 
+    self.prettify_date = function(date_string) {
+        var month_names = [
+          "January", "February", "March",
+          "April", "May", "June", "July",
+          "August", "September", "October",
+          "November", "December"
+        ];
+
+        var d = new Date(date_string);
+
+        var day = d.getDate();
+        var month = month_names[d.getMonth()];
+        var year = d.getFullYear();
+
+        return month + " " + day + ", " + year;
+    }
+
     self.init_vue = function() {
         self.vue.selected_priority = 'green';
         self.vue.tracks = tracks;
@@ -542,6 +561,8 @@ var app = function() {
             unlock_phase_button: self.unlock_phase_button,
             get_next_phase: self.get_next_phase,
             next_project_phase: self.next_project_phase,
+
+            prettify_date: self.prettify_date,
         }
     });
 

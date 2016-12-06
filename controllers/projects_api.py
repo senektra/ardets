@@ -186,7 +186,8 @@ def add_task():
         project_version=task.project_version,
         is_finished=task.is_finished,
         development_track=task.development_track,
-        task_state=task.task_state
+        task_state=task.task_state,
+        created_on=task.created_on
     ))
 
 
