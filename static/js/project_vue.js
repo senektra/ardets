@@ -373,6 +373,8 @@ var app = function() {
             }
 
             self.vue.project.versions.unshift(data.version);
+
+            self.get_project(data.version);
         });
     }
 
