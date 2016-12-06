@@ -233,11 +233,16 @@ html footer, body footer {
   font-size: 30px;
 }
 /* line 164, ../sass/project.scss */
-.track-title .icon-holder {
+.track-title .icon-holder-track {
   float: right;
 }
+/* line 168, ../sass/project.scss */
+.track-title .icon-holder-track:hover {
+  cursor: pointer;
+  color: #47adc2;
+}
 
-/* line 169, ../sass/project.scss */
+/* line 174, ../sass/project.scss */
 .track-summary {
   padding-left: 20px;
   height: 50%;
@@ -245,14 +250,14 @@ html footer, body footer {
   font-size: 20px;
 }
 
-/* line 179, ../sass/project.scss */
+/* line 184, ../sass/project.scss */
 #tasks-nav-buttons {
   width: 95%;
   height: 30px;
   margin-left: 7%;
   margin-bottom: 10px;
 }
-/* line 185, ../sass/project.scss */
+/* line 190, ../sass/project.scss */
 #tasks-nav-buttons div {
   float: left;
   display: inline-block;
@@ -261,29 +266,29 @@ html footer, body footer {
   font-size: 20px;
   text-align: center;
 }
-/* line 197, ../sass/project.scss */
+/* line 202, ../sass/project.scss */
 #tasks-nav-buttons div.selected {
   border-bottom: 2px solid #b0dce5;
 }
-/* line 201, ../sass/project.scss */
+/* line 206, ../sass/project.scss */
 #tasks-nav-buttons div:hover {
   cursor: pointer;
 }
 
-/* line 206, ../sass/project.scss */
+/* line 211, ../sass/project.scss */
 #tasks {
   height: 350px;
   overflow-y: auto;
   width: 95%;
 }
 
-/* line 212, ../sass/project.scss */
+/* line 217, ../sass/project.scss */
 .task-container {
   display: flex;
   margin-bottom: 15px;
   margin-left: 7%;
 }
-/* line 217, ../sass/project.scss */
+/* line 222, ../sass/project.scss */
 .task-container .priority {
   float: left;
   margin-top: 3px;
@@ -294,77 +299,77 @@ html footer, body footer {
   font-size: 17px;
   line-height: 32px;
 }
-/* line 229, ../sass/project.scss */
+/* line 234, ../sass/project.scss */
 .task-container .priority.red {
   border-left: 3px solid crimson;
 }
-/* line 233, ../sass/project.scss */
+/* line 238, ../sass/project.scss */
 .task-container .priority.yellow {
   border-left: 3px solid #ffda33;
 }
-/* line 237, ../sass/project.scss */
+/* line 242, ../sass/project.scss */
 .task-container .priority.green {
   border-left: 3px solid yellowgreen;
 }
-/* line 241, ../sass/project.scss */
+/* line 246, ../sass/project.scss */
 .task-container i:hover {
   cursor: pointer;
 }
-/* line 245, ../sass/project.scss */
+/* line 250, ../sass/project.scss */
 .task-container .task-buttons {
   float: left;
   display: inline-block;
   margin-right: 10px;
 }
-/* line 249, ../sass/project.scss */
+/* line 254, ../sass/project.scss */
 .task-container .task-buttons div {
   height: 15px;
 }
-/* line 253, ../sass/project.scss */
+/* line 258, ../sass/project.scss */
 .task-container .task-buttons div:first-child {
   margin-bottom: 3px;
 }
-/* line 258, ../sass/project.scss */
+/* line 263, ../sass/project.scss */
 .task-container .task-info-container {
   float: left;
   width: 85%;
 }
-/* line 263, ../sass/project.scss */
+/* line 268, ../sass/project.scss */
 .task-container .task-info-container .summary {
   font-size: 17px;
   margin-bottom: 4px;
 }
-/* line 268, ../sass/project.scss */
+/* line 273, ../sass/project.scss */
 .task-container .task-info-container .meta-info {
   display: inline-block;
   float: left;
   width: 100%;
   color: #47adc2;
 }
-/* line 275, ../sass/project.scss */
+/* line 280, ../sass/project.scss */
 .task-container .task-info-container .meta-info * {
   float: left;
   width: 50%;
 }
-/* line 281, ../sass/project.scss */
+/* line 286, ../sass/project.scss */
 .task-container .task-info-container .buttons {
   display: inline-block;
   float: left;
   width: 50%;
 }
 
-/* line 291, ../sass/project.scss */
+/* line 296, ../sass/project.scss */
 ::-webkit-scrollbar {
   width: 6px;
 }
 
-/* line 295, ../sass/project.scss */
+/* line 300, ../sass/project.scss */
 ::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
   border-radius: 5px;
 }
 
-/* line 300, ../sass/project.scss */
+/* line 305, ../sass/project.scss */
 ::-webkit-scrollbar-thumb {
   border-radius: 5px;
   background-color: #47adc2;

@@ -169,6 +169,11 @@ var app = function() {
     }
 
     self.set_overview_large = function(track) {
+        if (track == self.vue.overview_large) {
+            self.vue.overview_large = null;
+            return;
+        }
+
         self.vue.overview_large = track;
     }
 
@@ -177,6 +182,14 @@ var app = function() {
             return true;
         } else {
             return false;
+        }
+    }
+
+    self.get_overview_angle = function(track) {
+        if (track == self.vue.overview_large) {
+            return "fa fa-angle-up fa-lg";
+        } else {
+            return "fa fa-angle-down fa-lg";
         }
     }
 
@@ -528,6 +541,7 @@ var app = function() {
 
             set_overview_large: self.set_overview_large,
             is_overview_large: self.is_overview_large,
+            get_overview_angle: self.get_overview_angle,
 
             set_selected_priority: self.set_selected_priority,
 
