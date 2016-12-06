@@ -15,6 +15,7 @@
         var delete_task_url = "{{=URL('projects_api', 'delete_task', user_signature=True)}}";
         var ch_task_state_url = "{{=URL('projects_api', 'change_task_state', user_signature=True)}}";
         var inc_version_url = "{{=URL('projects_api', 'increment_version', user_signature=True)}}";
+        var next_phase_url = "{{=URL('projects_api', 'next_phase', user_signature=True)}}";
         var project_id = "{{=project_id}}";
     </script>
 {{end}}
@@ -30,7 +31,7 @@
             <div class="home">ARDeTS</div>
             <div class="user-buttons">
                 <div class="button" id="logout">
-                    <a href="{{=URL('ARDeTS/default', 'user', 'logout')}}">
+                    <a href="{{=URL('ardets/default', 'user', 'logout')}}">
                         <i class="fa fa-sign-out fa-lg"></i>
                         <span>Logout</span>
                     </a>
@@ -91,7 +92,48 @@
                     </div>
                 </div>
             </div>
+        </div>
 
+        <div v-if="phase_menu_active" id="phase-tab-menu" class="tab-menu-wrapper">
+            <div class="menu-header">Phase</div>
+
+            <div class="settings-tab-menu">
+                 <div id="phase-text-wrapper" class="settings-menu-text-wrapper">
+                    <p>
+                        Moving on to the next phase cannot be undone. Be sure that your project
+                        is actually ready to move to the next phase.
+                    </p>
+                </div>
+
+                <div v-if="project.phase != 'Archive'">
+                    <div class="text-menu-confirm">
+                        <div class="warning-text">The next phase will be ${get_next_phase()}</div>
+                    </div>
+
+                    <div class="menu-button-holder">
+                        <form class="phase-form" action="#" v-on:submit.prevent="next_project_phase()" class="form-horizontal" enctype="multipart/form-data" method="post">
+                            <input type="submit" class="phase-menu-button btn btn-default" value="Next Phase">
+                         </form>
+                    </div>
+
+                    <div class="lock-confirm-wrapper">
+                        <div class="phase-button-lock">
+                            <i v-on:click="unlock_phase_button()" class="fa fa-lock fa-lg"></i>
+                        </div>
+
+                        <div class="settings-button-lock-text">
+                            <p>Unlock to Confirm</p>
+                        </div>
+                    </div>
+                </div>
+                <div v-if="project.phase == 'Archive'">
+                    <div class="text-menu-confirm" id="last-phase-warning">
+                        There is no phase after Archive! You should not be developing for
+                        this version anymore!
+                    </div>
+                </div>
+
+            </div>
         </div>
 
         <div v-if="settings_menu_active" id="settings-tab-menu" class="tab-menu-wrapper">
@@ -176,15 +218,15 @@
         <div id="dev-tracks">
             <div v-for="track in tracks" class="dev-track" v-bind:class="{'overview-large': is_overview_large(track.title)}">
                 <!-- Begin Track Overview Section -->
-                <div v-bind:id="track.title" class="track-overview" v-on:click="set_overview_large(track.title)">
+                <div v-bind:id="track.title" class="track-overview">
                     <div class="track-icon-holder">
                         <i v-bind:class="track.faIcon" aria-hidden="true"></i>
                     </div>
 
                     <div class="track-title">
                         ${track.title} Track
-                        <div class="icon-holder">
-                            <i class="fa fa-angle-down fa-lg" aria-hidden="true"></i>
+                        <div class="icon-holder-track" v-on:click="set_overview_large(track.title)">
+                            <i v-bind:class="get_overview_angle(track.title)" aria-hidden="true"></i>
                         </div>
                     </div>
 
@@ -218,8 +260,7 @@
                                     ${task.summary}
                                 </div>
                                 <div class="meta-info">
-                                    <div class="created-by">Created by: Rodolfo</div>
-                                    <div class="created-on">Oct 9</div>
+                                    <div class="created-on">Created On ${prettify_date(task.created_on)}</div>
                                 </div>
                             </div>
                             </div>

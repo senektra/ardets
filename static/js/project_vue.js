@@ -35,6 +35,10 @@ var SETTINGS_MENU_DATA = {
     button_locked: false
 };
 
+var PHASE_MENU_DATA = {
+    button_locked: false
+};
+
 var tracks = {
     "Documentation": {
         title: DOCUMENTATION,
@@ -147,6 +151,8 @@ var app = function() {
             if (data.error) {
                 return;
             }
+            $.web2py.enableElement($("#add_task_submit"));
+
 
             self.vue.tracks[data.development_track].tasks.unshift(data);
 
@@ -163,6 +169,11 @@ var app = function() {
     }
 
     self.set_overview_large = function(track) {
+        if (track == self.vue.overview_large) {
+            self.vue.overview_large = null;
+            return;
+        }
+
         self.vue.overview_large = track;
     }
 
@@ -171,6 +182,14 @@ var app = function() {
             return true;
         } else {
             return false;
+        }
+    }
+
+    self.get_overview_angle = function(track) {
+        if (track == self.vue.overview_large) {
+            return "fa fa-angle-up fa-lg";
+        } else {
+            return "fa fa-angle-down fa-lg";
         }
     }
 
@@ -282,6 +301,10 @@ var app = function() {
                 self.vue.phase_menu_active = !self.vue.phase_menu_active;
                 self.vue.version_menu_active = false;
                 self.vue.settings_menu_active = false;
+
+                if (self.vue.phase_menu_active) {
+                    Vue.nextTick(self.lock_phase_button);
+                }
                 break;
             case 'settings':
                 self.vue.settings_menu_active = !self.vue.settings_menu_active;
@@ -340,7 +363,10 @@ var app = function() {
             $.web2py.enableElement($(".inc-button input"));
             self.lock_increment();
 
+            console.log(data)
+
             self.vue.project.version = data.version;
+            self.vue.project.phase = data.phase;
 
             if (version == VERSION_PATCH) {
                 self.vue.project.versions.shift();
@@ -408,12 +434,78 @@ var app = function() {
         });
     }
 
+    self.unlock_phase_button = function() {
+        if (!self.vue.phase_menu_data.button_locked) {
+            self.lock_phase_button();
+            return;
+        }
+
+        $('.phase-form').find('input[type=submit]').prop('disabled', false);
+        $('.phase-button-lock i').addClass('fa-unlock');
+        $('.phase-button-lock i').removeClass('fa-lock');
+
+        self.vue.phase_menu_data.button_locked = false;
+    }
+
+    self.lock_phase_button = function() {
+        $('.phase-form').find('input[type=submit]').prop('disabled', true);
+        $('.phase-button-lock i').addClass('fa-lock');
+        $('.phase-button-lock i').removeClass('fa-unlock');
+
+        self.vue.phase_menu_data.button_locked = true;
+    }
+
+    self.get_next_phase = function() {
+        switch(self.vue.project.phase) {
+            case "Develop":
+                return "Staging";
+            case "Staging":
+                return "Production";
+            case "Production":
+                return "Archive";
+        }
+    }
+
+    self.next_project_phase = function() {
+        $.post(next_phase_url, {
+            project_id: project_id
+        }, function(data) {
+            if (data.error || data.new_phase == "") {
+                console.error("Error bumping phase");
+                return;
+            }
+
+            $.web2py.enableElement($(".phase-menu-button"));
+            self.lock_phase_button();
+
+            self.vue.project.phase = data.new_phase;
+        });
+    }
+
+    self.prettify_date = function(date_string) {
+        var month_names = [
+          "January", "February", "March",
+          "April", "May", "June", "July",
+          "August", "September", "October",
+          "November", "December"
+        ];
+
+        var d = new Date(date_string);
+
+        var day = d.getDate();
+        var month = month_names[d.getMonth()];
+        var year = d.getFullYear();
+
+        return month + " " + day + ", " + year;
+    }
+
     self.init_vue = function() {
         self.vue.selected_priority = 'green';
         self.vue.tracks = tracks;
 
         self.vue.version_menu_data = VERSION_MENU_DATA;
         self.vue.settings_menu_data = SETTINGS_MENU_DATA;
+        self.vue.phase_menu_data = PHASE_MENU_DATA;
     }
 
     // Complete as needed.
@@ -449,6 +541,7 @@ var app = function() {
 
             set_overview_large: self.set_overview_large,
             is_overview_large: self.is_overview_large,
+            get_overview_angle: self.get_overview_angle,
 
             set_selected_priority: self.set_selected_priority,
 
@@ -478,6 +571,12 @@ var app = function() {
 
             reset_project: self.reset_project,
             delete_project: self.delete_project,
+
+            unlock_phase_button: self.unlock_phase_button,
+            get_next_phase: self.get_next_phase,
+            next_project_phase: self.next_project_phase,
+
+            prettify_date: self.prettify_date,
         }
     });
 

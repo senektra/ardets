@@ -125,7 +125,29 @@
   cursor: pointer;
 }
 
-/* line 163, ../sass/project_menu.scss */
+/* line 162, ../sass/project_menu.scss */
+.phase-button-lock {
+  margin-right: 10px;
+}
+
+/* line 166, ../sass/project_menu.scss */
+.phase-button-lock:hover {
+  cursor: pointer;
+}
+
+/* line 170, ../sass/project_menu.scss */
+.phase-form {
+  display: flex;
+  justify-content: center;
+}
+
+/* line 175, ../sass/project_menu.scss */
+#last-phase-warning {
+  color: #47adc2;
+  margin-bottom: 10px;
+}
+
+/* line 183, ../sass/project_menu.scss */
 #settings-tabs ul {
   display: flex;
   justify-content: center;
@@ -134,7 +156,7 @@
   padding: 0;
   list-style-type: none;
 }
-/* line 175, ../sass/project_menu.scss */
+/* line 195, ../sass/project_menu.scss */
 #settings-tabs ul li {
   display: block;
   flex: 1;
@@ -143,57 +165,57 @@
   line-height: 40px;
   text-align: center;
 }
-/* line 187, ../sass/project_menu.scss */
+/* line 207, ../sass/project_menu.scss */
 #settings-tabs ul .selected {
   border-bottom: 3px solid #b0dce5;
 }
-/* line 191, ../sass/project_menu.scss */
+/* line 211, ../sass/project_menu.scss */
 #settings-tabs ul li:hover {
   cursor: pointer;
 }
 
-/* line 199, ../sass/project_menu.scss */
+/* line 219, ../sass/project_menu.scss */
 .settings-tab-menu {
   display: flex;
   justify-content: center;
   flex-direction: column;
   width: 100%;
 }
-/* line 207, ../sass/project_menu.scss */
+/* line 227, ../sass/project_menu.scss */
 .settings-tab-menu .settings-menu-text-wrapper {
   padding-left: 50px;
   padding-right: 50px;
   color: gray;
 }
-/* line 214, ../sass/project_menu.scss */
+/* line 234, ../sass/project_menu.scss */
 .settings-tab-menu .text-menu-confirm {
   text-align: center;
   color: crimson;
 }
-/* line 219, ../sass/project_menu.scss */
+/* line 239, ../sass/project_menu.scss */
 .settings-tab-menu .menu-button-holder {
   margin: auto;
   margin-top: 10px;
 }
-/* line 223, ../sass/project_menu.scss */
+/* line 243, ../sass/project_menu.scss */
 .settings-tab-menu .menu-button-holder input {
   background-color: #b0dce5;
   height: 32px;
   color: black;
   line-height: 16px;
 }
-/* line 233, ../sass/project_menu.scss */
+/* line 253, ../sass/project_menu.scss */
 .settings-tab-menu .lock-confirm-wrapper {
   display: flex;
   justify-content: center;
   margin-top: 10px;
   margin-bottom: 10px;
 }
-/* line 241, ../sass/project_menu.scss */
+/* line 261, ../sass/project_menu.scss */
 .settings-tab-menu .lock-confirm-wrapper .settings-button-lock {
   margin-right: 6px;
 }
-/* line 245, ../sass/project_menu.scss */
+/* line 265, ../sass/project_menu.scss */
 .settings-tab-menu .lock-confirm-wrapper .settings-button-lock:hover {
   cursor: pointer;
 }

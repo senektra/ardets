@@ -12,6 +12,9 @@
 def index():
     # Only used to display index page
     ardets_db = db(db.project.project_name == "ARDeTS").select().first()
+
+    if ardets_db is None:
+        return dict(version="is not part of this universe")
     ardets_version = ardets_db.project_version
 
     return dict(version=ardets_version)
